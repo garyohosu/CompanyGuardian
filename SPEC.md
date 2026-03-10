@@ -196,8 +196,9 @@ CompanyGuardian/
 - `repo`: GitHub リポジトリ名
 - `workflow`: GitHub Actions ワークフロー名（`github_actions` チェック時は明示推奨）
 - `required_keywords`: トップページにあるべき文字列一覧（`top_page_keyword` チェック時に使用）
-- `required_paths`: サイト URL 配下の必須パス一覧（`<site><path>` を HTTP 確認する。リポジトリ内パスは別項目）
-- `required_artifacts`: 必須成果物の定義一覧（`artifact` チェック時に使用、下記参照）
+- `required_paths`: 公開サイト上の必須パス簡易記法（後方互換用）。内部では `required_artifacts` の `type: site_path` に正規化する
+- `required_artifacts`: 必須成果物の定義一覧（`artifact` チェック時に使用。新規定義は原則こちらを使用）
+- `link_targets`: `link_health` チェック時に明示確認するリンク URL 一覧
 - `self_monitor`: 自己監視対象か
 - `notes`: 補足説明
 
@@ -211,20 +212,25 @@ CompanyGuardian/
 | `repo_path` | リポジトリ内必須ファイル（将来拡張） | `README.md`, `data/latest.json` |
 | `workflow_artifact` | GitHub Actions 実行物（将来拡張） | `site-build` |
 
+初期版では `required_artifacts` を正とする。
+`required_paths` は後方互換の簡易記法として許容し、内部では `type: site_path` に正規化して扱う。
+両方が指定された場合はマージし、重複パスは排除する。
+
 ### 9.4.2 利用可能な `checks` 種別
 
 | 種別 | 判定条件 |
 |------|----------|
 | `site_http` | HTTP GET で 2xx → 正常、3xx → 警告、4xx/5xx → 異常 |
 | `top_page_keyword` | `required_keywords` の全要素がトップページ本文に含まれる → 正常、1つでも欠落 → 異常 |
-| `link_health` | 抽出したリンクへ HTTP HEAD/GET し、4xx/5xx → 異常 |
+| `link_health` | 範囲限定型。`portal` は同一オリジン内リンク + `enabled: true` な各 `virtual_company.site` + `link_targets`、`virtual_company` は同一オリジン内の主要導線のみ（深さ1）。4xx/5xx → 異常 |
 | `github_actions` | 直近1回の実行結果を確認（判定詳細は §10.3 参照） |
 | `artifact` | `required_artifacts` で定義された成果物の存在確認 |
-| `report_generated` | 当日の日報ファイルが所定パスに存在する → 正常 |
-| `config_valid` | 必須設定ファイルが YAML/Markdown として構文妥当 → 正常 |
-| `self_status` | CompanyGuardian 自身の前回実行結果・必須出力有無を確認 |
+| `report_generated` | 直近の完了対象日の日報ファイルが所定パスに存在する → 正常（定期実行時は前回定期実行分、手動実行時は直近の定期実行分） |
+| `config_valid` | 必須設定ファイルが YAML/Markdown として構文妥当で、必須設定キーを満たす → 正常 |
+| `self_status` | CompanyGuardian 自身の前回実行結果、README 必須セクション、自己監視要件、直近定期日報との整合を確認 |
 
 未知の種別が指定された場合は、警告を日報に記録してその項目のみスキップする。全体実行は止めない。
+日次判定基準は §10.1 に従い、Action の実行状態確認は当日基準、日報・日次成果物の存在確認は前日基準とする。
 
 ### 9.5 サンプル
 
@@ -239,17 +245,6 @@ companies:
       - site_http
       - top_page_keyword
       - link_health
-
-  - id: auto-ai-blog
-    name: Auto AI Blog
-    kind: virtual_company
-    repo: garyohosu/auto-ai-blog
-    site: https://hantani-portfolio.pages.dev/
-    enabled: true
-    checks:
-      - github_actions
-      - site_http
-      - artifact
 
   - id: auto-ai-blog
     name: Auto AI Blog
@@ -293,16 +288,23 @@ companies:
 
 ### スケジュール
 - cron: `0 21 * * *`（UTC 21:00 = JST 06:00）
-- 日報ファイル名の基準日は **JST** とする
+- 日付判定と日報ファイル名の基準日は **JST** とする
 - 手動実行（`workflow_dispatch`）時も日報を生成する
-- 同日複数回実行した場合は別ファイルを生成する（例: `2026-03-10_manual_01.md`）
+- 定期実行の出力先は `reports/daily/YYYY-MM-DD.md`
+- 手動実行の出力先は `reports/daily/YYYY-MM-DD_manual_XX.md`（`XX` は `01` からの連番）
+- 初期版では既存日報への追記更新は行わない
+
+### 日次判定基準
+- GitHub Actions などの実行状態確認は当日基準
+- デイリー投稿、日報、日次成果物の存在確認は前日基準
+- 例: `2026-03-10 JST 06:00` 実行時は、Actions は `2026-03-10` 時点の最新実行、日報や日次成果物は `2026-03-09` 分を確認する
 
 ### 入力
 - `companies.yaml`
 
 ### 出力
 - 実行ログ
-- 日報 Markdown（`reports/daily/YYYY-MM-DD.md`、JST 基準）
+- 日報 Markdown（定期実行: `reports/daily/YYYY-MM-DD.md` / 手動実行: `reports/daily/YYYY-MM-DD_manual_XX.md`、JST 基準）
 - 必要に応じた incident / countermeasure Markdown
 
 ---
@@ -319,6 +321,28 @@ companies:
 - 主要リンクの健全性
 - ポータルから主要会社リンクへ到達可能か
 
+### `link_health` の対象範囲
+- 同一オリジン内リンク
+- `companies.yaml` に定義された `enabled: true` かつ `kind: virtual_company` の各 `site`
+- 明示的に `link_targets` で指定されたリンク
+
+### 除外対象
+- SNS
+- 広告
+- analytics
+- 外部 CDN
+- 外部ブログやニュース記事リンク
+- クエリ付きトラッキングリンク
+
+### 主要会社リンク判定ルール
+- 正本は `companies.yaml` の `enabled: true` かつ `kind: virtual_company` の各エントリとする
+- 各会社の `site` を期待リンク先として扱う
+- 親ポータル HTML 内に、その URL または正規化後に同値なリンクが存在するか確認する
+- リンクが存在し、到達可能であれば正常
+- `site` 未設定の会社は対象外
+- `enabled: false` の会社は対象外
+- 将来、親ポータル非掲載会社を許容したい場合は `portal_visible: false` の追加で拡張する
+
 ### 異常例
 - 404 / 500
 - トップページ内容欠損
@@ -332,8 +356,10 @@ companies:
 ### チェック項目
 - GitHub Actions の直近実行成功/失敗
 - 公開サイトの HTTP 応答（ホスティング方式を問わない）
-- 必須成果物の生成有無（`required_artifacts` で定義）
+- 必須成果物の生成有無（`required_artifacts` で定義。`required_paths` は内部的に `type: site_path` へ正規化する）
 - 必要に応じトップページキーワード確認
+
+日次判定基準は §10.1 に従う。
 
 ### GitHub Actions 判定ルール
 - 参照対象: `workflow` で指定したワークフローの**最新1回**（未指定の場合はリポジトリの最新1回）
@@ -358,10 +384,16 @@ companies:
 
 ### チェック項目
 - 前回スケジュール実行成功
-- 当日の日報生成可否
+- 直近の定期実行分の日報存在
 - `companies.yaml` の妥当性
-- README.md の必須セクション存在
-- 自己監視結果が日報に記録されていること
+- README.md の必須セクション存在（§11 の 9 項目）
+- 前回の自己監視結果が直近の定期日報に記録されていること
+
+### 判定補足
+- `report_generated` は当日分ではなく、直近の定期実行分の日報を確認する
+- 手動実行時も `report_generated` の確認対象は直近の定期実行分とする
+- `config_valid` は YAML/Markdown の構文妥当性、ファイル存在、必須設定キーの有無を確認する
+- README 必須セクション存在や自己監視要件の充足確認は `self_status` が担当する
 
 ### 重要ルール
 - 自己異常は高優先度とする
@@ -427,10 +459,12 @@ companies:
 ## 10.7 日報生成
 
 ### 目的
-1 日の巡回結果を 1 ファイルに集約する。
+1 回の巡回結果を 1 ファイルに集約する。
 
 ### 出力先
-`reports/daily/YYYY-MM-DD.md`
+- 定期実行: `reports/daily/YYYY-MM-DD.md`
+- 手動実行: `reports/daily/YYYY-MM-DD_manual_XX.md`
+- 初期版では既存ファイルへの追記更新は行わない
 
 ### 必須項目
 - 実行日時
@@ -539,7 +573,9 @@ README.md には最低限以下を記載する。
 ### 15.1 日報ファイル
 - UTF-8
 - Markdown
-- ファイル名: `YYYY-MM-DD.md`
+- 定期実行のファイル名: `YYYY-MM-DD.md`
+- 手動実行のファイル名: `YYYY-MM-DD_manual_XX.md`
+- 日付は JST 基準
 
 ### 15.2 インシデント
 - UTF-8
@@ -615,7 +651,7 @@ README.md には最低限以下を記載する。
 4. CompanyGuardian 自身を自己監視できる
 5. 異常時に incident Markdown を生成できる
 6. 再発防止策 Markdown を保存できる
-7. 日報 Markdown を毎日 1 ファイル生成できる
+7. 定期実行で日報 Markdown を毎日 1 ファイル生成でき、手動実行では追加ファイルを生成できる
 8. README.md に `countermeasures/` を読む運用ルールを明記できる
 
 ---
