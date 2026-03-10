@@ -1,12 +1,12 @@
-# インシデント: AITecBlog
+# インシデント: CompanyGuardian
 
 - 発生日: 2026-03-10
-- 対象会社: AITecBlog
-- 対象ID: ai-tec-blog
-- 異常コード: ADSENSE_PAGE_MISSING
+- 対象会社: CompanyGuardian
+- 対象ID: company-guardian
+- 異常コード: REPORT_MISSING, SELF_CHECK_FAILED
 
 ## 現象
-ページ欠落: /privacy-policy/, /contact/
+日報なし: reports/daily/2026-03-09.md
 
 ## 影響範囲
 公開サイトは到達可能だが、業務継続または品質に重大な異常あり

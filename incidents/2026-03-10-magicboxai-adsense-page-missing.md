@@ -1,8 +1,8 @@
-# インシデント: AITecBlog
+# インシデント: MagicBoxAI
 
 - 発生日: 2026-03-10
-- 対象会社: AITecBlog
-- 対象ID: ai-tec-blog
+- 対象会社: MagicBoxAI
+- 対象ID: magic-box-ai
 - 異常コード: ADSENSE_PAGE_MISSING
 
 ## 現象

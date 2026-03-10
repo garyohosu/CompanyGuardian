@@ -1,26 +1,36 @@
 # インシデント: Root Portal
 
 - 発生日: 2026-03-10
-- 対象: Root Portal
-- 異常区分: KEYWORD_MISSING, LINK_BROKEN, ADSENSE_PAGE_MISSING
+- 対象会社: Root Portal
+- 対象ID: root-portal
+- 異常コード: KEYWORD_MISSING, LINK_BROKEN, ADSENSE_PAGE_MISSING
 
 ## 現象
-欠落キーワード: Virtual Company; リンク切れ: https://garyohosu.github.io/{url}, https://genspark.ai?via=garyo471; ページ欠落: /privacy-policy/, /contact/
+ページ欠落: /privacy-policy/, /contact/
 
 ## 影響範囲
+公開サイトは到達可能だが、業務継続または品質に重大な異常あり
+
+## 原因分類
+
+
+## 原因要約
+調査中
+
+## 推奨修正
+
+
+## 実施した修正
+自動修正未実施
+
+## 修正結果
+未解決
+
+## 次アクション
 
 
 ## 原因
 調査中
-
-## 応急対策
-
-
-## 恒久対策候補
-
-
-## 結果
-
 
 ## 関連 countermeasure
 

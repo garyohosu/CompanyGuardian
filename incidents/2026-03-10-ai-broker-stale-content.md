@@ -1,0 +1,36 @@
+# インシデント: AI-Broker
+
+- 発生日: 2026-03-10
+- 対象会社: AI-Broker
+- 対象ID: ai-broker
+- 異常コード: ACTION_FAILED, STALE_CONTENT, DAILY_POST_MISSING, ADSENSE_PAGE_MISSING
+
+## 現象
+最新日次レポートが 2026-03-06 で停止
+
+## 影響範囲
+公開サイトは到達可能だが、業務継続または品質に重大な異常あり
+
+## 原因分類
+WORKFLOW_FAILED
+
+## 原因要約
+latest_run=completed/failure/2026-03-09T08:13:31Z / latest_success=2026-03-06T07:58:01Z / latest_commit=2026-03-08T12:00:19Z / site_latest=2026-03-06 / repo_content_exists=False / failure_reason=daily::Run daily job=failure | daily::Commit & Push=skipped | daily::Post Run actions/setup-python@v5=skipped
+
+## 推奨修正
+workflow を 1 回 rerun
+
+## 実施した修正
+ai-broker は GITHUB_TOKEN 未設定のため自動修正スキップ
+
+## 修正結果
+ai-broker は GITHUB_TOKEN 未設定のため自動修正スキップ
+
+## 次アクション
+workflow を 1 回 rerun
+
+## 原因
+latest_run=completed/failure/2026-03-09T08:13:31Z / latest_success=2026-03-06T07:58:01Z / latest_commit=2026-03-08T12:00:19Z / site_latest=2026-03-06 / repo_content_exists=False / failure_reason=daily::Run daily job=failure | daily::Commit & Push=skipped | daily::Post Run actions/setup-python@v5=skipped
+
+## 関連 countermeasure
+
