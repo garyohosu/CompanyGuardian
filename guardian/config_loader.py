@@ -99,18 +99,26 @@ class ConfigLoader:
         )
 
     def validate(self, companies: list) -> bool:
+        """検証に通れば True、1件でもエラーがあれば False。"""
+        return len(self.validate_with_errors(companies)) == 0
+
+    def validate_with_errors(self, companies: list) -> list:
+        """検証エラー文字列のリストを返す。空リストなら正常。"""
+        errors = []
         site_required_checks = {
             "site_http",
             "top_page_keyword",
             "link_health",
             "adsense_pages",
         }
+        valid_kinds = {"portal", "virtual_company", "guardian"}
         ids_seen = set()
+
         for c in companies:
             cid = c["id"] if isinstance(c, dict) else c.id
-            cname = c["name"] if isinstance(c, dict) else c.name
             ckind = c["kind"] if isinstance(c, dict) else c.kind
             cchecks = c["checks"] if isinstance(c, dict) else c.checks
+            cenabled = c["enabled"] if isinstance(c, dict) else c.enabled
             csite = c["site"] if isinstance(c, dict) else c.site
             crepo = c["repo"] if isinstance(c, dict) else c.repo
             carts = c["required_artifacts"] if isinstance(c, dict) else c.required_artifacts
@@ -118,24 +126,39 @@ class ConfigLoader:
             cadsense_pages = c["required_adsense_pages"] if isinstance(c, dict) else c.required_adsense_pages
 
             if not cid:
-                return False
-            if not ckind:
-                return False
+                errors.append("id が未設定の会社がある")
+                continue  # id なしは以降のチェック不可
+
             if cid in ids_seen:
-                return False
+                errors.append(f"id 重複: {cid}")
             ids_seen.add(cid)
 
-            check_strs = [str(ck) for ck in cchecks]
-            if any(ck in site_required_checks for ck in check_strs) and not csite:
-                return False
-            if "github_actions" in check_strs and not crepo:
-                return False
-            if cadsense_required and not cadsense_pages:
-                return False
-            if self._has_site_path_artifact(carts) and not csite:
-                return False
+            kind_val = ckind.value if hasattr(ckind, "value") else str(ckind)
+            if kind_val not in valid_kinds:
+                errors.append(f"{cid}: kind が不正: {kind_val!r}")
 
-        return True
+            if not isinstance(cenabled, bool):
+                errors.append(f"{cid}: enabled が bool でない: {cenabled!r}")
+
+            if not cchecks:
+                errors.append(f"{cid}: checks が空")
+
+            check_strs = [str(ck) for ck in (cchecks or [])]
+            if any(ck in site_required_checks for ck in check_strs) and not csite:
+                errors.append(f"{cid}: site が必要な check があるが site 未設定")
+
+            if "github_actions" in check_strs and not crepo:
+                errors.append(f"{cid}: github_actions check があるが repo 未設定")
+
+            if cadsense_required and not cadsense_pages:
+                errors.append(
+                    f"{cid}: adsense_required=True だが required_adsense_pages 未設定"
+                )
+
+            if self._has_site_path_artifact(carts) and not csite:
+                errors.append(f"{cid}: site_path artifact があるが site 未設定")
+
+        return errors
 
     def _has_site_path_artifact(self, artifacts: list) -> bool:
         for artifact in artifacts or []:

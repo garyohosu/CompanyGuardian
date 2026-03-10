@@ -184,3 +184,12 @@ class DailyReport:
     adsense_anomalies: List[CheckResult] = field(default_factory=list)
     summary: str = ""
     file_path: str = ""
+
+
+@dataclass
+class AutoFixResult:
+    target_id: str
+    fix_kind: str
+    status: str  # "OK" / "WARN" / "SKIP" / "FAIL"
+    message: str
+    changed_files: List[str] = field(default_factory=list)

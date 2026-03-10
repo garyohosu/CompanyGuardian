@@ -910,4 +910,141 @@ class TestSelfStatusChecker:
             assert checker._check_readme_sections(required=None) is False
 
 
+# ---------------------------------------------------------------------------
+# ReportGeneratedChecker - report_generated が UNKNOWN にならない
+# ---------------------------------------------------------------------------
+
+class TestReportGeneratedCheckerNotUnknown:
+
+    def _make_guardian(self):
+        from tests.conftest import make_company
+        return make_company(
+            id="company-guardian",
+            kind="guardian",
+            self_monitor=True,
+            checks=["report_generated"],
+        )
+
+    def test_report_generated_not_unknown_in_runner(self):
+        """_check_all で report_generated が UNKNOWN にならず正常に実行される"""
+        from guardian.runner import CompanyGuardianRunner
+        from guardian.models import CheckKind
+        runner = CompanyGuardianRunner()
+        company = self._make_guardian()
+        with patch("guardian.checkers.report_generated.os.path.exists", return_value=True):
+            results = runner._check_all([company])
+        kinds = [r.check_kind for r in results]
+        assert CheckKind.UNKNOWN not in kinds
+
+    def test_report_generated_returns_ok_when_report_exists(self):
+        """前日日報が存在する → OK"""
+        from guardian.checkers.report_generated import ReportGeneratedChecker
+        from guardian.models import TriggerKind
+        checker = ReportGeneratedChecker(trigger=TriggerKind.SCHEDULED)
+        company = {"id": "company-guardian"}
+        with patch("guardian.checkers.report_generated.os.path.exists", return_value=True):
+            result = checker.check(company)
+        assert result.status.value == "OK"
+        assert result.check_kind.value == "REPORT_GENERATED"
+
+    def test_report_generated_returns_error_when_report_missing(self):
+        """前日日報がない → ERROR / REPORT_MISSING"""
+        from guardian.checkers.report_generated import ReportGeneratedChecker
+        from guardian.models import TriggerKind
+        checker = ReportGeneratedChecker(trigger=TriggerKind.SCHEDULED)
+        company = {"id": "company-guardian"}
+        with patch("guardian.checkers.report_generated.os.path.exists", return_value=False):
+            result = checker.check(company)
+        assert result.status.value == "ERROR"
+        assert result.error_code.value == "REPORT_MISSING"
+
+
+# ---------------------------------------------------------------------------
+# ConfigValidChecker - 重複 ID と必須キー不足の検出
+# ---------------------------------------------------------------------------
+
+class TestConfigValidCheckerEnhanced:
+
+    def _make_guardian(self):
+        from tests.conftest import make_company
+        return make_company(
+            id="company-guardian",
+            kind="guardian",
+            checks=["config_valid"],
+        )
+
+    def test_config_valid_detects_duplicate_id(self, tmp_path, monkeypatch):
+        """重複 ID があれば ERROR / CONFIG_INVALID"""
+        import textwrap
+        from guardian.checkers.config_valid import ConfigValidChecker
+        monkeypatch.chdir(tmp_path)
+        (tmp_path / "companies").mkdir()
+        yaml_content = textwrap.dedent("""\
+            companies:
+              - id: dup-co
+                name: Co A
+                kind: virtual_company
+                enabled: true
+                checks:
+                  - config_valid
+              - id: dup-co
+                name: Co B
+                kind: virtual_company
+                enabled: true
+                checks:
+                  - config_valid
+        """)
+        (tmp_path / "companies" / "companies.yaml").write_text(yaml_content, encoding="utf-8")
+        checker = ConfigValidChecker()
+        company = self._make_guardian()
+        result = checker.check(company)
+        assert result.status.value == "ERROR"
+        assert result.error_code.value == "CONFIG_INVALID"
+        assert "重複" in result.detail
+
+    def test_config_valid_detects_missing_site_for_site_http(self, tmp_path, monkeypatch):
+        """site_http check があるが site 未設定 → ERROR"""
+        import textwrap
+        from guardian.checkers.config_valid import ConfigValidChecker
+        monkeypatch.chdir(tmp_path)
+        (tmp_path / "companies").mkdir()
+        yaml_content = textwrap.dedent("""\
+            companies:
+              - id: no-site-co
+                name: No Site
+                kind: virtual_company
+                enabled: true
+                checks:
+                  - site_http
+        """)
+        (tmp_path / "companies" / "companies.yaml").write_text(yaml_content, encoding="utf-8")
+        checker = ConfigValidChecker()
+        company = self._make_guardian()
+        result = checker.check(company)
+        assert result.status.value == "ERROR"
+        assert "site" in result.detail.lower() or "CONFIG_INVALID" in result.error_code.value
+
+    def test_config_valid_ok_for_valid_yaml(self, tmp_path, monkeypatch):
+        """正常な YAML → OK"""
+        import textwrap
+        from guardian.checkers.config_valid import ConfigValidChecker
+        monkeypatch.chdir(tmp_path)
+        (tmp_path / "companies").mkdir()
+        yaml_content = textwrap.dedent("""\
+            companies:
+              - id: valid-co
+                name: Valid Co
+                kind: virtual_company
+                site: https://example.com
+                enabled: true
+                checks:
+                  - site_http
+        """)
+        (tmp_path / "companies" / "companies.yaml").write_text(yaml_content, encoding="utf-8")
+        checker = ConfigValidChecker()
+        company = self._make_guardian()
+        result = checker.check(company)
+        assert result.status.value == "OK"
+
+
 from unittest.mock import mock_open  # noqa: E402 (ファイル末尾にまとめて import)

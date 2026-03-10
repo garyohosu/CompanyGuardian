@@ -7,7 +7,9 @@ from guardian.models import DailyReport, CheckStatus, CheckKind, TriggerKind
 
 class DailyReportGenerator:
 
-    def generate(self, results: list, trigger: TriggerKind) -> DailyReport:
+    def generate(
+        self, results: list, trigger: TriggerKind, autofix_results: list = None
+    ) -> DailyReport:
         ok = [r for r in results if r.status == CheckStatus.OK]
         warnings = [r for r in results if r.status == CheckStatus.WARNING]
         errors = [r for r in results if r.status == CheckStatus.ERROR]
@@ -22,6 +24,8 @@ class DailyReportGenerator:
             (r for r in results if r.check_kind == CheckKind.SELF_STATUS), None
         )
 
+        applied = self._build_applied_measures(autofix_results or [])
+
         return DailyReport(
             executed_at=datetime.now(),
             trigger=trigger,
@@ -30,12 +34,22 @@ class DailyReportGenerator:
             warning_count=len(warnings),
             error_count=len(errors),
             action_required=action_required,
-            applied_measures=[],
+            applied_measures=applied,
             new_countermeasures=[],
             self_monitor_result=self_monitor_result,
             adsense_anomalies=adsense_anomalies,
             summary=self._build_summary(len(ok), len(warnings), len(errors)),
         )
+
+    def _build_applied_measures(self, autofix_results: list) -> list:
+        """AutoFixResult リストから日報用の対策実施行を生成する。"""
+        if not autofix_results:
+            return ["自動修正対象なし"]
+
+        lines = []
+        for fix in autofix_results:
+            lines.append(f"[AUTO_FIX][{fix.status}] {fix.message}")
+        return lines
 
     def save(self, report: DailyReport) -> str:
         filename = self._resolve_file_name(report.trigger)
@@ -91,8 +105,11 @@ class DailyReportGenerator:
             lines.append(f"- [{r.status.value}] {r.company_id} / {r.check_kind.value}: {r.detail}")
 
         lines += ["", "## 対策実施", ""]
-        for m in report.applied_measures:
-            lines.append(f"- {m}")
+        if report.applied_measures:
+            for m in report.applied_measures:
+                lines.append(f"- {m}")
+        else:
+            lines.append("- 自動修正対象なし")
 
         lines += ["", "## 新規 countermeasure", ""]
         for cm in report.new_countermeasures:

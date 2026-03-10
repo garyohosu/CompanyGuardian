@@ -34,13 +34,17 @@ class ConfigValidChecker:
                 checked_at=datetime.now(),
             )
 
-        if not loader.validate(companies):
+        validation_errors = loader.validate_with_errors(companies)
+        if validation_errors:
+            detail = "設定内容が不正: " + "; ".join(validation_errors[:3])
+            if len(validation_errors) > 3:
+                detail += f" 他 {len(validation_errors) - 3} 件"
             return CheckResult(
                 company_id=company_id,
                 check_kind=CheckKind.CONFIG_VALID,
                 status=CheckStatus.ERROR,
                 error_code=ErrorCode.CONFIG_INVALID,
-                detail="設定内容が不正",
+                detail=detail,
                 checked_at=datetime.now(),
             )
 

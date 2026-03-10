@@ -17,6 +17,7 @@ from guardian.incident_recorder import IncidentRecorder
 from guardian.countermeasure_manager import CountermeasureManager
 from guardian.daily_report_generator import DailyReportGenerator
 from guardian.git_pusher import GitPusher
+from guardian.auto_fixer import AutoFixer
 
 logger = logging.getLogger(__name__)
 
@@ -40,6 +41,7 @@ class CompanyGuardianRunner:
         self._cm_manager = CountermeasureManager()
         self._report_generator = DailyReportGenerator()
         self._git_pusher = GitPusher()
+        self._auto_fixer = AutoFixer()
         self._companies_by_id = {}
         self._trigger = TriggerKind.SCHEDULED
 
@@ -49,15 +51,66 @@ class CompanyGuardianRunner:
         enabled = [c for c in companies if c["enabled"]]
         self._companies_by_id = {c["id"]: c for c in companies}
 
+        # 1. pre-check autofix: README 問題など実行継続性に関わる修正
+        autofix_results = self._run_pre_check_fixes()
+
+        # 2. 全チェック実行
         results = self._check_all(enabled)
+
+        # 3. 異常処理: incident / countermeasure 生成
         output_files = []
         generated_files = self._handle_anomalies(results)
         if isinstance(generated_files, (list, tuple, set)):
             for path in generated_files:
                 self._append_output_file(output_files, path)
-        report = self._generate_report(results, trigger)
+
+        # 4. post-check autofix: GitHub Actions 再試行など
+        post_fixes = self._run_post_check_fixes(results)
+        autofix_results.extend(post_fixes)
+
+        # autofix で変更したファイルも push 対象へ
+        for fix in autofix_results:
+            for path in fix.changed_files:
+                self._append_output_file(output_files, path)
+
+        # 5. 日報生成（autofix 結果を含む）
+        report = self._generate_report(results, trigger, autofix_results)
         self._append_output_file(output_files, getattr(report, "file_path", ""))
+
+        # 6. git push
         self._push_outputs(output_files)
+
+    def _run_pre_check_fixes(self) -> list:
+        """チェック前に実行する低リスク自動修正。README コピーなど。"""
+        results = []
+        fix = self._auto_fixer.fix_readme_if_needed()
+        if fix is not None:
+            results.append(fix)
+            logger.info(f"[AUTO_FIX][{fix.status}] {fix.message}")
+        return results
+
+    def _run_post_check_fixes(self, check_results: list) -> list:
+        """チェック後に実行する低リスク自動修正。GitHub Actions 再試行など。"""
+        from guardian.models import CheckKind, CheckStatus, ErrorCode
+        results = []
+
+        for r in check_results:
+            if (
+                r.check_kind == CheckKind.GITHUB_ACTIONS
+                and r.status == CheckStatus.ERROR
+                and r.error_code == ErrorCode.ACTION_FAILED
+                and "conclusion=failure" in (r.detail or "")
+            ):
+                company = self._companies_by_id.get(r.company_id, {})
+                repo = company.get("repo") if isinstance(company, dict) else getattr(company, "repo", None)
+                fix = self._auto_fixer.retry_github_actions_if_applicable(
+                    r.company_id, repo or ""
+                )
+                if fix is not None:
+                    results.append(fix)
+                    logger.info(f"[AUTO_FIX][{fix.status}] {fix.message}")
+
+        return results
 
     def _load_config(self) -> list:
         loader = ConfigLoader()
@@ -69,22 +122,22 @@ class CompanyGuardianRunner:
             checks = company["checks"] if isinstance(company, dict) else company.checks
             for ck in checks:
                 kind_str = str(ck).lower()
-                factory = CHECKER_REGISTRY.get(kind_str)
-                if factory is None:
-                    results.append(CheckResult(
-                        company_id=company["id"] if isinstance(company, dict) else company.id,
-                        check_kind=CheckKind.UNKNOWN,
-                        status=CheckStatus.WARNING,
-                        error_code=None,
-                        detail=f"未知の check_kind: {kind_str}",
-                        checked_at=datetime.now(),
-                    ))
-                    continue
-                # report_generated には trigger が必要
+                # report_generated は trigger が必要なため registry 外で処理
                 if kind_str == "report_generated":
                     from guardian.checkers.report_generated import ReportGeneratedChecker
                     checker = ReportGeneratedChecker(trigger=self._trigger)
                 else:
+                    factory = CHECKER_REGISTRY.get(kind_str)
+                    if factory is None:
+                        results.append(CheckResult(
+                            company_id=company["id"] if isinstance(company, dict) else company.id,
+                            check_kind=CheckKind.UNKNOWN,
+                            status=CheckStatus.WARNING,
+                            error_code=None,
+                            detail=f"未知の check_kind: {kind_str}",
+                            checked_at=datetime.now(),
+                        ))
+                        continue
                     checker = factory()
                 try:
                     result = checker.check(company)
@@ -121,8 +174,8 @@ class CompanyGuardianRunner:
                 self._append_output_file(output_files, self._cm_manager.save(cm))
         return output_files
 
-    def _generate_report(self, results: list, trigger: TriggerKind):
-        report = self._report_generator.generate(results, trigger)
+    def _generate_report(self, results: list, trigger: TriggerKind, autofix_results: list = None):
+        report = self._report_generator.generate(results, trigger, autofix_results or [])
         self._report_generator.save(report)
         return report
 

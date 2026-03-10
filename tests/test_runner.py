@@ -246,11 +246,97 @@ class TestCompanyGuardianRunnerHandleAnomalies:
             with patch.object(runner, "_check_all", return_value=[]):
                 with patch.object(runner, "_handle_anomalies",
                                   return_value=["incidents/x.md", "countermeasures/y.md"]):
-                    with patch.object(runner, "_generate_report", return_value=report):
-                        with patch.object(runner, "_push_outputs") as mock_push:
-                            runner.run(TriggerKind.SCHEDULED)
+                    with patch.object(runner, "_run_pre_check_fixes", return_value=[]):
+                        with patch.object(runner, "_run_post_check_fixes", return_value=[]):
+                            with patch.object(runner, "_generate_report", return_value=report):
+                                with patch.object(runner, "_push_outputs") as mock_push:
+                                    runner.run(TriggerKind.SCHEDULED)
         mock_push.assert_called_once_with([
             "incidents/x.md",
             "countermeasures/y.md",
             "reports/daily/2026-03-10.md",
         ])
+
+
+class TestAutoFixIntegration:
+
+    def _make_runner(self):
+        from guardian.runner import CompanyGuardianRunner
+        return CompanyGuardianRunner()
+
+    def test_readme_autofix_included_in_push(self):
+        """README 自動コピー時、README.md が push 対象に含まれる"""
+        from guardian.runner import CompanyGuardianRunner
+        from guardian.models import TriggerKind, AutoFixResult
+        runner = self._make_runner()
+        readme_fix = AutoFixResult(
+            target_id="company-guardian",
+            fix_kind="readme_copy",
+            status="OK",
+            message="README.txt を README.md にコピー",
+            changed_files=["README.md"],
+        )
+        report = MagicMock(file_path="reports/daily/2026-03-10.md")
+        with patch.object(runner, "_load_config", return_value=[]):
+            with patch.object(runner, "_check_all", return_value=[]):
+                with patch.object(runner, "_handle_anomalies", return_value=[]):
+                    with patch.object(runner, "_run_pre_check_fixes",
+                                      return_value=[readme_fix]):
+                        with patch.object(runner, "_run_post_check_fixes", return_value=[]):
+                            with patch.object(runner, "_generate_report", return_value=report):
+                                with patch.object(runner, "_push_outputs") as mock_push:
+                                    runner.run(TriggerKind.SCHEDULED)
+        pushed_files = mock_push.call_args[0][0]
+        assert "README.md" in pushed_files
+
+    def test_applied_measures_not_empty_in_report(self):
+        """日報の applied_measures が空欄にならない（自動修正なしなら理由が入る）"""
+        from guardian.daily_report_generator import DailyReportGenerator
+        from guardian.models import TriggerKind
+        gen = DailyReportGenerator()
+        report = gen.generate([], TriggerKind.SCHEDULED, autofix_results=[])
+        assert len(report.applied_measures) >= 1
+        assert any("自動修正対象なし" in m for m in report.applied_measures)
+
+    def test_applied_measures_contains_autofix_result(self):
+        """autofix_results がある場合、applied_measures に AUTO_FIX ログが入る"""
+        from guardian.daily_report_generator import DailyReportGenerator
+        from guardian.models import TriggerKind, AutoFixResult
+        gen = DailyReportGenerator()
+        fix = AutoFixResult(
+            target_id="company-guardian",
+            fix_kind="readme_copy",
+            status="OK",
+            message="README.txt を README.md にコピーして自己監視前提を修正",
+        )
+        report = gen.generate([], TriggerKind.SCHEDULED, autofix_results=[fix])
+        assert any("[AUTO_FIX][OK]" in m for m in report.applied_measures)
+
+    def test_github_actions_retry_post_check_fix(self):
+        """github_actions ERROR (failure) が検出された場合 _run_post_check_fixes が再試行を試みる"""
+        from guardian.runner import CompanyGuardianRunner
+        from guardian.models import (
+            CheckResult, CheckStatus, CheckKind, ErrorCode, TriggerKind
+        )
+        from datetime import datetime
+        runner = self._make_runner()
+        runner._companies_by_id = {
+            "test-co": {"id": "test-co", "repo": "org/test-co"}
+        }
+        error_result = CheckResult(
+            company_id="test-co",
+            check_kind=CheckKind.GITHUB_ACTIONS,
+            status=CheckStatus.ERROR,
+            error_code=ErrorCode.ACTION_FAILED,
+            detail="conclusion=failure",
+            checked_at=datetime.now(),
+        )
+        skip_fix = MagicMock()
+        skip_fix.status = "SKIP"
+        skip_fix.message = "GITHUB_TOKEN 未設定のため再試行スキップ"
+        with patch.object(runner._auto_fixer,
+                          "retry_github_actions_if_applicable",
+                          return_value=skip_fix) as mock_retry:
+            fixes = runner._run_post_check_fixes([error_result])
+        mock_retry.assert_called_once_with("test-co", "org/test-co")
+        assert len(fixes) == 1

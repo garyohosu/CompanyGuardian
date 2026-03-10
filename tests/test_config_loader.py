@@ -329,3 +329,110 @@ class TestConfigLoaderValidate:
         with patch("builtins.open", mock_open(read_data=yaml_data)):
             companies = loader.load("companies/companies.yaml")
         assert loader.validate(companies) is False
+
+
+# ---------------------------------------------------------------------------
+# validate_with_errors() のテスト
+# ---------------------------------------------------------------------------
+
+class TestConfigLoaderValidateWithErrors:
+
+    def test_returns_empty_list_for_valid_config(self):
+        """正常な設定なら空リストを返す"""
+        yaml_data = textwrap.dedent("""\
+            companies:
+              - id: valid-co
+                name: Valid Co
+                kind: virtual_company
+                site: https://example.com
+                enabled: true
+                checks:
+                  - site_http
+        """)
+        from guardian.config_loader import ConfigLoader
+        loader = ConfigLoader()
+        with patch("builtins.open", mock_open(read_data=yaml_data)):
+            companies = loader.load("companies/companies.yaml")
+        errors = loader.validate_with_errors(companies)
+        assert errors == []
+
+    def test_detects_duplicate_id(self):
+        """重複 ID を検出してエラーメッセージを含む"""
+        yaml_data = textwrap.dedent("""\
+            companies:
+              - id: dup-co
+                name: Co A
+                kind: virtual_company
+                enabled: true
+                checks: []
+              - id: dup-co
+                name: Co B
+                kind: virtual_company
+                enabled: true
+                checks: []
+        """)
+        from guardian.config_loader import ConfigLoader
+        loader = ConfigLoader()
+        with patch("builtins.open", mock_open(read_data=yaml_data)):
+            companies = loader.load("companies/companies.yaml")
+        errors = loader.validate_with_errors(companies)
+        assert any("重複" in e and "dup-co" in e for e in errors)
+
+    def test_detects_missing_site_for_site_http(self):
+        """site_http check があるが site 未設定のエラーを検出"""
+        yaml_data = textwrap.dedent("""\
+            companies:
+              - id: no-site
+                name: No Site
+                kind: virtual_company
+                enabled: true
+                checks: [site_http]
+        """)
+        from guardian.config_loader import ConfigLoader
+        loader = ConfigLoader()
+        with patch("builtins.open", mock_open(read_data=yaml_data)):
+            companies = loader.load("companies/companies.yaml")
+        errors = loader.validate_with_errors(companies)
+        assert any("site" in e.lower() for e in errors)
+
+    def test_detects_missing_repo_for_github_actions(self):
+        """github_actions check があるが repo 未設定のエラーを検出"""
+        yaml_data = textwrap.dedent("""\
+            companies:
+              - id: no-repo
+                name: No Repo
+                kind: virtual_company
+                site: https://example.com
+                enabled: true
+                checks: [github_actions]
+        """)
+        from guardian.config_loader import ConfigLoader
+        loader = ConfigLoader()
+        with patch("builtins.open", mock_open(read_data=yaml_data)):
+            companies = loader.load("companies/companies.yaml")
+        errors = loader.validate_with_errors(companies)
+        assert any("repo" in e.lower() for e in errors)
+
+    def test_collects_multiple_errors(self):
+        """複数エラーをまとめて返す"""
+        yaml_data = textwrap.dedent("""\
+            companies:
+              - id: bad-co
+                name: Bad Co
+                kind: virtual_company
+                enabled: true
+                checks: [site_http, github_actions]
+        """)
+        from guardian.config_loader import ConfigLoader
+        loader = ConfigLoader()
+        with patch("builtins.open", mock_open(read_data=yaml_data)):
+            companies = loader.load("companies/companies.yaml")
+        errors = loader.validate_with_errors(companies)
+        # site_http に site なし + github_actions に repo なし で 2件以上
+        assert len(errors) >= 2
+
+    def test_validate_still_returns_bool(self):
+        """validate() は後方互換で bool を返す（validate_with_errors 経由）"""
+        from guardian.config_loader import ConfigLoader
+        loader = ConfigLoader()
+        assert loader.validate([]) is True
