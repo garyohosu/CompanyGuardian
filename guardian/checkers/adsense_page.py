@@ -1,6 +1,9 @@
+import logging
 import requests
 from datetime import datetime
 from guardian.models import CheckResult, CheckStatus, CheckKind, ErrorCode
+
+logger = logging.getLogger(__name__)
 
 
 class AdSensePageChecker:
@@ -10,6 +13,7 @@ class AdSensePageChecker:
         site = company["site"] if isinstance(company, dict) else company.site
         pages = company["required_adsense_pages"] if isinstance(company, dict) else company.required_adsense_pages
         marker = company["adsense_marker_keyword"] if isinstance(company, dict) else company.adsense_marker_keyword
+        logger.debug("target=%s checker=adsense_pages site=%s page_count=%d", company_id, site, len(pages or []))
 
         if not pages:
             return CheckResult(
@@ -35,6 +39,7 @@ class AdSensePageChecker:
                     last_text = resp.text
             except Exception:
                 missing_pages.append(page_path)
+                logger.debug("target=%s checker=adsense_pages missing_page=%s", company_id, page_path)
 
         if missing_pages:
             return CheckResult(

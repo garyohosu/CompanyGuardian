@@ -1,8 +1,11 @@
 import os
 import glob
 import re
+import logging
 from datetime import datetime
 from guardian.models import DailyReport, CheckStatus, CheckKind, TriggerKind
+
+logger = logging.getLogger(__name__)
 
 
 class DailyReportGenerator:
@@ -25,6 +28,14 @@ class DailyReportGenerator:
         )
 
         applied = self._build_applied_measures(autofix_results or [])
+        logger.info(
+            "report generate trigger=%s total=%d ok=%d warning=%d error=%d",
+            trigger.value.lower(),
+            len(results),
+            len(ok),
+            len(warnings),
+            len(errors),
+        )
 
         return DailyReport(
             executed_at=datetime.now(),
@@ -61,6 +72,7 @@ class DailyReportGenerator:
             f.write(content)
 
         report.file_path = path
+        logger.info("report written path=%s", path)
         return path
 
     def _resolve_file_name(self, trigger: TriggerKind) -> str:
@@ -102,7 +114,8 @@ class DailyReportGenerator:
             "## 要対応一覧",
         ]
         for r in report.action_required:
-            lines.append(f"- [{r.status.value}] {r.company_id} / {r.check_kind.value}: {r.detail}")
+            label = r.error_code.value if r.error_code else r.check_kind.value
+            lines.append(f"- [{r.status.value}] {r.company_id} / {label}: {r.detail}")
 
         lines += ["", "## 対策実施", ""]
         if report.applied_measures:

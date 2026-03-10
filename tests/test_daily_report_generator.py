@@ -232,3 +232,28 @@ class TestDailyReportGeneratorSave:
                                   return_value="2026-03-10.md"):
                     gen.save(report)
         m().write.assert_called()
+
+    def test_render_uses_error_code_label_when_present(self):
+        from guardian.daily_report_generator import DailyReportGenerator
+        from guardian.models import DailyReport, TriggerKind
+
+        gen = DailyReportGenerator()
+        report = MagicMock(spec=DailyReport)
+        report.executed_at = datetime(2026, 3, 10, 6, 0, 0)
+        report.trigger = TriggerKind.SCHEDULED
+        report.total_count = 1
+        report.ok_count = 0
+        report.warning_count = 0
+        report.error_count = 1
+        report.action_required = [
+            _make_result("ERROR", check_kind="LATEST_POST_FRESHNESS", error_code="STALE_CONTENT", company_id="ai-broker")
+        ]
+        report.applied_measures = ["[AUTO_FIX][SKIP] ai-broker は原因解析のみ実施"]
+        report.new_countermeasures = []
+        report.self_monitor_result = None
+        report.adsense_anomalies = []
+        report.summary = "要対応"
+
+        markdown = gen._render(report)
+
+        assert "ai-broker / STALE_CONTENT" in markdown

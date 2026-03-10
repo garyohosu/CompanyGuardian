@@ -1,8 +1,10 @@
 import os
+import logging
 from datetime import datetime, date, timedelta
 from guardian.models import CheckResult, CheckStatus, CheckKind, ErrorCode
 
 _README_PATH = "README.md"
+logger = logging.getLogger(__name__)
 
 _REQUIRED_SECTIONS = [
     "## 目的",
@@ -24,9 +26,11 @@ class SelfStatusChecker:
 
     def check(self, company) -> CheckResult:
         company_id = company["id"]
+        logger.debug("target=%s checker=self_status readme=%s", company_id, _README_PATH)
 
         readme_ok = self._check_readme_sections(required=None)
         report_ok = self._check_prev_report_consistency()
+        logger.debug("target=%s checker=self_status readme_ok=%s report_ok=%s", company_id, readme_ok, report_ok)
 
         if not readme_ok or not report_ok:
             detail_parts = []

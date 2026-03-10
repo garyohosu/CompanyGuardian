@@ -1,6 +1,9 @@
+import logging
 import requests
 from datetime import datetime
 from guardian.models import CheckResult, CheckStatus, CheckKind, ErrorCode
+
+logger = logging.getLogger(__name__)
 
 
 class SiteHttpChecker:
@@ -8,6 +11,7 @@ class SiteHttpChecker:
     def check(self, company) -> CheckResult:
         company_id = company["id"]
         site = company["site"]
+        logger.debug("target=%s checker=site_http site=%s", company_id, site)
         try:
             resp = requests.get(site, timeout=10, allow_redirects=False)
             code = resp.status_code
@@ -27,6 +31,7 @@ class SiteHttpChecker:
             status = CheckStatus.ERROR
             error_code = ErrorCode.SITE_DOWN
             detail = str(e)
+            logger.debug("target=%s checker=site_http exception=\"%s\"", company_id, e)
 
         return CheckResult(
             company_id=company_id,

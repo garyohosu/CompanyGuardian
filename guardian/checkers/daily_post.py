@@ -1,13 +1,26 @@
+import logging
 from datetime import datetime, date, timedelta
+from guardian.content_inspector import ContentInspector
+from guardian.content_state import ContentStateStore
 from guardian.models import CheckResult, CheckStatus, CheckKind, ErrorCode
+
+logger = logging.getLogger(__name__)
 
 
 class DailyPostChecker:
+    def __init__(self):
+        self._inspector = ContentInspector()
+        self._state_store = ContentStateStore()
 
     def check(self, company) -> CheckResult:
         company_id = company["id"]
         strategies = company["daily_post_strategy"] if isinstance(company, dict) else company.daily_post_strategy
         locator = company["daily_post_locator"] if isinstance(company, dict) else company.daily_post_locator
+        rule = company["daily_post_rule"] if isinstance(company, dict) else getattr(company, "daily_post_rule", {})
+        logger.debug("target=%s checker=daily_post_previous_day strategy_count=%d rule=%s", company_id, len(strategies or []), "yes" if rule else "no")
+
+        if rule:
+            return self._check_with_rule(company, rule)
 
         if not strategies:
             return CheckResult(
@@ -35,12 +48,70 @@ class DailyPostChecker:
             checked_at=datetime.now(),
         )
 
+    def _check_with_rule(self, company, rule: dict) -> CheckResult:
+        company_id = company["id"] if isinstance(company, dict) else company.id
+        yesterday = self._resolve_previous_day(rule)
+        now = datetime.now()
+        entries = self._inspector.fetch_entries(company, rule, limit=int((rule or {}).get("entry_limit", 5)))
+        logger.debug("target=%s checker=daily_post_previous_day expected_date=%s fetched_entries=%d", company_id, yesterday.isoformat(), len(entries))
+        latest = entries[0] if entries else None
+        if latest is not None:
+            self._state_store.update_target(company_id, latest, now)
+
+        for entry in entries:
+            if entry.published_on == yesterday:
+                return CheckResult(
+                    company_id=company_id,
+                    check_kind=CheckKind.DAILY_POST_PREVIOUS_DAY,
+                    status=CheckStatus.OK,
+                    error_code=None,
+                    detail=(rule or {}).get("ok_message", "前日投稿確認済"),
+                    checked_at=now,
+                    context={
+                        "latest_date": latest.published_on.isoformat() if latest and latest.published_on else "",
+                        "latest_url": latest.url if latest else "",
+                    },
+                )
+
+        label = (rule or {}).get("label", "前日投稿")
+        template = (rule or {}).get(
+            "missing_message_template",
+            "{label}が {expected_date} 分で欠落",
+        )
+        return CheckResult(
+            company_id=company_id,
+            check_kind=CheckKind.DAILY_POST_PREVIOUS_DAY,
+            status=CheckStatus.ERROR,
+            error_code=ErrorCode.DAILY_POST_MISSING,
+            detail=template.format(label=label, expected_date=yesterday.isoformat()),
+            checked_at=now,
+            context={
+                "expected_date": yesterday.isoformat(),
+                "latest_date": latest.published_on.isoformat() if latest and latest.published_on else "",
+                "latest_url": latest.url if latest else "",
+                "latest_title": latest.title if latest else "",
+            },
+        )
+
     def _resolve_previous_day_jst(self) -> date:
         try:
             import zoneinfo
             tz = zoneinfo.ZoneInfo("Asia/Tokyo")
         except ImportError:
             from datetime import timezone
+            tz = timezone.utc
+        now = datetime.now(tz=tz)
+        return (now - timedelta(days=1)).date()
+
+    def _resolve_previous_day(self, rule: dict) -> date:
+        timezone_name = (rule or {}).get("timezone", "Asia/Tokyo")
+        try:
+            import zoneinfo
+
+            tz = zoneinfo.ZoneInfo(timezone_name)
+        except Exception:
+            from datetime import timezone
+
             tz = timezone.utc
         now = datetime.now(tz=tz)
         return (now - timedelta(days=1)).date()

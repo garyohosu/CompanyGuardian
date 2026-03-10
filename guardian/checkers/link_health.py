@@ -1,8 +1,11 @@
+import logging
 import requests
 from urllib.parse import urljoin, urlparse
 from datetime import datetime
 from guardian.config_loader import ConfigLoader
 from guardian.models import CheckResult, CheckStatus, CheckKind, ErrorCode
+
+logger = logging.getLogger(__name__)
 
 _SNS_DOMAINS = {
     "twitter.com", "x.com", "facebook.com", "instagram.com",
@@ -21,11 +24,13 @@ class LinkHealthChecker:
         site = company["site"]
         kind = company["kind"] if isinstance(company, dict) else company.kind.value
         link_targets = company["link_targets"] if isinstance(company, dict) else company.link_targets
+        logger.debug("target=%s checker=link_health site=%s kind=%s explicit_links=%d", company_id, site, kind, len(link_targets or []))
 
         try:
             resp = requests.get(site, timeout=10)
             html = resp.text
         except Exception as e:
+            logger.debug("target=%s checker=link_health exception=\"%s\"", company_id, e)
             return CheckResult(
                 company_id=company_id,
                 check_kind=CheckKind.LINK_HEALTH,
@@ -55,6 +60,7 @@ class LinkHealthChecker:
             portal_mismatches, portal_missing = self._collect_portal_expectations(anchors)
 
         broken = self._collect_broken_links(links)
+        logger.debug("target=%s checker=link_health total_links=%d broken=%d", company_id, len(links), len(broken))
 
         mismatch_errors = [
             mismatch for mismatch in portal_mismatches

@@ -239,6 +239,39 @@ class TestConfigLoaderLoad:
             companies = loader.load("companies/companies.yaml")
         assert len(companies) == 1
 
+    def test_load_content_monitoring_rules(self):
+        yaml_data = textwrap.dedent("""\
+            companies:
+              - id: content-co
+                name: Content Co
+                kind: virtual_company
+                site: https://example.com
+                repo: org/content-co
+                enabled: true
+                checks:
+                  - latest_post_freshness
+                  - latest_post_uniqueness
+                  - serial_progress
+                content_monitoring_kind: daily_post
+                freshness_rule:
+                  max_age_days: 1
+                uniqueness_rule:
+                  compare_fields: [title, content_hash]
+                serial_rule:
+                  progress_path: current_part
+        """)
+        from guardian.config_loader import ConfigLoader
+
+        loader = ConfigLoader()
+        with patch("builtins.open", mock_open(read_data=yaml_data)):
+            companies = loader.load("companies/companies.yaml")
+
+        company = companies[0]
+        assert company.content_monitoring_kind == "daily_post"
+        assert company.freshness_rule["max_age_days"] == 1
+        assert company.uniqueness_rule["compare_fields"] == ["title", "content_hash"]
+        assert company.serial_rule["progress_path"] == "current_part"
+
 
 # ---------------------------------------------------------------------------
 # validate() のテスト

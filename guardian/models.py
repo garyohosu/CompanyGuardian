@@ -25,6 +25,9 @@ class ErrorCode(Enum):
     LINK_BROKEN = "LINK_BROKEN"
     PORTAL_LINK_MISMATCH = "PORTAL_LINK_MISMATCH"
     DAILY_POST_MISSING = "DAILY_POST_MISSING"
+    STALE_CONTENT = "STALE_CONTENT"
+    DUPLICATE_CONTENT = "DUPLICATE_CONTENT"
+    SERIAL_STALLED = "SERIAL_STALLED"
     ADSENSE_PAGE_MISSING = "ADSENSE_PAGE_MISSING"
     CONFIG_INVALID = "CONFIG_INVALID"
     SELF_CHECK_FAILED = "SELF_CHECK_FAILED"
@@ -39,6 +42,9 @@ class CheckKind(Enum):
     GITHUB_ACTIONS = "GITHUB_ACTIONS"
     ARTIFACT = "ARTIFACT"
     DAILY_POST_PREVIOUS_DAY = "DAILY_POST_PREVIOUS_DAY"
+    LATEST_POST_FRESHNESS = "LATEST_POST_FRESHNESS"
+    LATEST_POST_UNIQUENESS = "LATEST_POST_UNIQUENESS"
+    SERIAL_PROGRESS = "SERIAL_PROGRESS"
     ADSENSE_PAGES = "ADSENSE_PAGES"
     REPORT_GENERATED = "REPORT_GENERATED"
     CONFIG_VALID = "CONFIG_VALID"
@@ -65,6 +71,12 @@ class DailyPostStrategy(Enum):
     INDEX_PAGE_KEYWORD = "index_page_keyword"
 
 
+class ContentMonitoringKind(Enum):
+    DAILY_POST = "daily_post"
+    SERIAL = "serial"
+    GENERIC = "generic"
+
+
 class _CheckKindStr(str):
     """YAML から読んだチェック種別文字列。.value でローカーケース文字列を返す。"""
     @property
@@ -80,6 +92,7 @@ class CheckResult:
     error_code: Optional[ErrorCode]
     detail: str
     checked_at: datetime
+    context: dict = field(default_factory=dict)
 
     @property
     def is_error(self) -> bool:
@@ -133,6 +146,11 @@ class Company:
     notes: str = ""
     repo_visibility: str = "public"
     github_auth_required: bool = False
+    content_monitoring_kind: Optional[str] = None
+    freshness_rule: dict = field(default_factory=dict)
+    daily_post_rule: dict = field(default_factory=dict)
+    uniqueness_rule: dict = field(default_factory=dict)
+    serial_rule: dict = field(default_factory=dict)
 
     def __getitem__(self, key):
         return getattr(self, key)
@@ -146,12 +164,19 @@ class Incident:
     incident_date: date
     target_name: str
     error_codes: List[ErrorCode]
+    company_id: str = ""
     phenomenon: str = ""
     impact: str = ""
     cause: str = ""
+    cause_code: str = ""
+    cause_summary: str = ""
+    recommended_fix: str = ""
     quick_fix: str = ""
     permanent_fix_candidates: str = ""
     result: str = ""
+    executed_fix: str = ""
+    fix_result: str = ""
+    next_action: str = ""
     related_countermeasure: str = ""
     file_path: str = ""
 
@@ -193,3 +218,26 @@ class AutoFixResult:
     status: str  # "OK" / "WARN" / "SKIP" / "FAIL"
     message: str
     changed_files: List[str] = field(default_factory=list)
+    context: dict = field(default_factory=dict)
+
+
+@dataclass
+class ContentEntry:
+    url: str = ""
+    title: str = ""
+    published_on: Optional[date] = None
+    excerpt: str = ""
+    slug: str = ""
+    content_hash: str = ""
+    progress_value: Optional[int] = None
+    fetch_status: Optional[int] = None
+
+
+@dataclass
+class ContentIncidentAnalysis:
+    company_id: str
+    error_code: Optional[ErrorCode]
+    cause_code: str
+    cause_summary: str
+    recommended_fix: str
+    diagnostics: dict = field(default_factory=dict)

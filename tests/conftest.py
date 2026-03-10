@@ -33,6 +33,11 @@ def make_company(**kwargs):
         notes="",
         repo_visibility="public",
         github_auth_required=False,
+        content_monitoring_kind=None,
+        freshness_rule={},
+        daily_post_rule={},
+        uniqueness_rule={},
+        serial_rule={},
     )
     defaults.update(kwargs)
     return defaults

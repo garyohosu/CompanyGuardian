@@ -96,6 +96,11 @@ class ConfigLoader:
             notes=item.get("notes", ""),
             repo_visibility=item.get("repo_visibility", "public"),
             github_auth_required=item.get("github_auth_required", False),
+            content_monitoring_kind=item.get("content_monitoring_kind"),
+            freshness_rule=dict(item.get("freshness_rule", {}) or {}),
+            daily_post_rule=dict(item.get("daily_post_rule", {}) or {}),
+            uniqueness_rule=dict(item.get("uniqueness_rule", {}) or {}),
+            serial_rule=dict(item.get("serial_rule", {}) or {}),
         )
 
     def validate(self, companies: list) -> bool:
@@ -110,6 +115,9 @@ class ConfigLoader:
             "top_page_keyword",
             "link_health",
             "adsense_pages",
+            "latest_post_freshness",
+            "latest_post_uniqueness",
+            "serial_progress",
         }
         valid_kinds = {"portal", "virtual_company", "guardian"}
         ids_seen = set()
@@ -124,6 +132,11 @@ class ConfigLoader:
             carts = c["required_artifacts"] if isinstance(c, dict) else c.required_artifacts
             cadsense_required = c["adsense_required"] if isinstance(c, dict) else c.adsense_required
             cadsense_pages = c["required_adsense_pages"] if isinstance(c, dict) else c.required_adsense_pages
+            cfreshness_rule = c["freshness_rule"] if isinstance(c, dict) else c.freshness_rule
+            cdaily_post_rule = c["daily_post_rule"] if isinstance(c, dict) else c.daily_post_rule
+            cuniqueness_rule = c["uniqueness_rule"] if isinstance(c, dict) else c.uniqueness_rule
+            cserial_rule = c["serial_rule"] if isinstance(c, dict) else c.serial_rule
+            cdaily_post_strategy = c.get("daily_post_strategy", []) if isinstance(c, dict) else c.daily_post_strategy
 
             if not cid:
                 errors.append("id が未設定の会社がある")
@@ -157,6 +170,18 @@ class ConfigLoader:
 
             if self._has_site_path_artifact(carts) and not csite:
                 errors.append(f"{cid}: site_path artifact があるが site 未設定")
+
+            if "latest_post_freshness" in check_strs and not cfreshness_rule:
+                errors.append(f"{cid}: latest_post_freshness check があるが freshness_rule 未設定")
+
+            if "daily_post_previous_day" in check_strs and not (cdaily_post_rule or cdaily_post_strategy):
+                errors.append(f"{cid}: daily_post_previous_day check があるが daily_post_rule または daily_post_strategy 未設定")
+
+            if "latest_post_uniqueness" in check_strs and not cuniqueness_rule:
+                errors.append(f"{cid}: latest_post_uniqueness check があるが uniqueness_rule 未設定")
+
+            if "serial_progress" in check_strs and not cserial_rule:
+                errors.append(f"{cid}: serial_progress check があるが serial_rule 未設定")
 
         return errors
 

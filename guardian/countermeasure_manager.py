@@ -1,7 +1,10 @@
 import os
 import re
 import glob
+import logging
 from guardian.models import Countermeasure, Incident
+
+logger = logging.getLogger(__name__)
 
 
 class CountermeasureManager:
@@ -9,6 +12,7 @@ class CountermeasureManager:
     def should_create(self, incident: Incident) -> bool:
         existing = glob.glob("countermeasures/CM-*.md")
         if not existing:
+            logger.info("countermeasure create target=%s reason=no_existing_countermeasure", incident.company_id or incident.target_name)
             return True
 
         # 同種の error_code が既存 CM に含まれるか確認
@@ -19,6 +23,7 @@ class CountermeasureManager:
                     content = f.read()
                 for code in incident_codes:
                     if code in content:
+                        logger.info("countermeasure skipped target=%s reason=existing_code code=%s", incident.company_id or incident.target_name, code)
                         return False
             except Exception:
                 pass
@@ -50,6 +55,7 @@ class CountermeasureManager:
             f.write(content)
 
         cm.file_path = path
+        logger.info("countermeasure written path=%s", path)
         return path
 
     def _next_cm_number(self) -> int:
@@ -68,6 +74,9 @@ class CountermeasureManager:
             return "UnknownIssue"
         code = incident.error_codes[0].value
         mapping = {
+            "STALE_CONTENT": "StaleContentRecovery",
+            "DUPLICATE_CONTENT": "DuplicatePublishGuard",
+            "SERIAL_STALLED": "SerialProgressRecovery",
             "SITE_DOWN": "SiteDownGuard",
             "ACTION_FAILED": "ActionRevive",
             "ARTIFACT_MISSING": "ArtifactGuard",

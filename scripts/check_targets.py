@@ -15,17 +15,14 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from guardian.models import TriggerKind
+from guardian.logging_utils import setup_logging, get_log_path
 from guardian.runner import CompanyGuardianRunner
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
 logger = logging.getLogger("check_targets")
 
 
 def main():
+    setup_logging(force=True)
     parser = argparse.ArgumentParser(description="CompanyGuardian 巡回スクリプト")
     parser.add_argument(
         "--trigger",
@@ -36,14 +33,16 @@ def main():
     args = parser.parse_args()
 
     trigger = TriggerKind.SCHEDULED if args.trigger == "scheduled" else TriggerKind.MANUAL
-    logger.info(f"CompanyGuardian 開始 trigger={trigger.value}")
+    logger.info(
+        f"CompanyGuardian bootstrap trigger={trigger.value.lower()} log_path={get_log_path()}"
+    )
 
     runner = CompanyGuardianRunner()
     try:
         runner.run(trigger)
-        logger.info("CompanyGuardian 完了")
+        logger.info("CompanyGuardian command completed")
     except Exception as e:
-        logger.error(f"CompanyGuardian 実行エラー: {e}", exc_info=True)
+        logger.error(f"CompanyGuardian fatal error message=\"{e}\"", exc_info=True)
         sys.exit(1)
 
 

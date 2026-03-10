@@ -86,16 +86,41 @@ companies:
     name: AI-Broker
     kind: virtual_company
     repo: garyohosu/ai-broker
+    workflow: daily.yml
     site: https://garyohosu.github.io/ai-broker/
     enabled: true
     portal_visible: true
     adsense_required: true
+    content_monitoring_kind: daily_post
+    freshness_rule:
+      source_type: html_regex
+      source_url: https://garyohosu.github.io/ai-broker/
+      entry_regex: '(?P<url>/posts/daily/(?P<date>\d{4}-\d{2}-\d{2})\.html)'
+      date_format: '%Y-%m-%d'
+      timezone: Asia/Tokyo
+      max_age_days: 1
+      label: 最新日次レポート
+      stale_message_template: '{label}が {latest_date} で停止'
+      repo_path_pattern: docs/posts/daily/{date}.html
+      workflow: daily.yml
+    daily_post_rule:
+      source_type: html_regex
+      source_url: https://garyohosu.github.io/ai-broker/
+      entry_regex: '(?P<url>/posts/daily/(?P<date>\d{4}-\d{2}-\d{2})\.html)'
+      date_format: '%Y-%m-%d'
+      timezone: Asia/Tokyo
+      label: 前日の日次レポート
+      missing_message_template: '{label}が {expected_date} 分で欠落'
+      repo_path_pattern: docs/posts/daily/{date}.html
+      workflow: daily.yml
     required_adsense_pages:
       - /privacy-policy/
       - /contact/
     checks:
       - github_actions
       - site_http
+      - latest_post_freshness
+      - daily_post_previous_day
       - adsense_pages
 
   - id: web-game
@@ -118,16 +143,39 @@ companies:
     name: WomensMagazine
     kind: virtual_company
     repo: garyohosu/WomensMagazine
+    workflow: generate.yml
     site: https://garyohosu.github.io/WomensMagazine/
     enabled: true
     portal_visible: true
     adsense_required: true
+    content_monitoring_kind: daily_post
+    freshness_rule:
+      source_type: html_regex
+      source_url: https://garyohosu.github.io/WomensMagazine/
+      entry_regex: 'href="(?P<url>/WomensMagazine/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/[^"]+/)"'
+      timezone: Asia/Tokyo
+      max_age_days: 1
+      label: 最新記事
+      stale_message_template: '{label}が {latest_date} で停止'
+      repo_path_prefix_pattern: _posts/{date}-
+      workflow: generate.yml
+    daily_post_rule:
+      source_type: html_regex
+      source_url: https://garyohosu.github.io/WomensMagazine/
+      entry_regex: 'href="(?P<url>/WomensMagazine/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/[^"]+/)"'
+      timezone: Asia/Tokyo
+      label: 前日記事
+      missing_message_template: '{label}が {expected_date} 分で欠落'
+      repo_path_prefix_pattern: _posts/{date}-
+      workflow: generate.yml
     required_adsense_pages:
       - /privacy-policy/
       - /contact/
     checks:
       - github_actions
       - site_http
+      - latest_post_freshness
+      - daily_post_previous_day
       - adsense_pages
 
   - id: aozora-daily-translations
@@ -138,6 +186,7 @@ companies:
     enabled: true
     portal_visible: true
     adsense_required: true
+    content_monitoring_kind: daily_post
     daily_post_strategy:
       - feed_xml
       - site_path_pattern
@@ -145,6 +194,26 @@ companies:
       feed_url: https://garyohosu.github.io/AozoraDailyTranslations/feed.xml
       path_pattern: https://garyohosu.github.io/AozoraDailyTranslations/posts/{yyyy}/{mm}/{dd}/
       timezone: Asia/Tokyo
+    daily_post_rule:
+      source_type: html_regex
+      source_url: https://garyohosu.github.io/AozoraDailyTranslations/
+      entry_regex: '<a class="az-card" href="(?P<url>\./works/(?P<date>\d{4}-\d{2}-\d{2})-[^"]+/index\.html)">\s*<span class="az-card-date">(?P=date)</span>\s*<span class="az-card-title">(?P<title>[^<]+)</span>'
+      date_format: '%Y-%m-%d'
+      timezone: Asia/Tokyo
+      label: 前日翻訳
+      missing_message_template: '{label}が {expected_date} 分で欠落'
+    uniqueness_rule:
+      source_type: html_regex
+      source_url: https://garyohosu.github.io/AozoraDailyTranslations/
+      entry_regex: '<a class="az-card" href="(?P<url>\./works/(?P<date>\d{4}-\d{2}-\d{2})-[^"]+/index\.html)">\s*<span class="az-card-date">(?P=date)</span>\s*<span class="az-card-title">(?P<title>[^<]+)</span>'
+      date_format: '%Y-%m-%d'
+      compare_fields:
+        - title
+        - content_hash
+      fetch_content_hash: true
+      duplicate_message_template: '{previous_date} と {latest_date} の投稿内容が重複'
+      workflow: pages.yml
+      deploy_workflow: pages.yml
     required_adsense_pages:
       - /privacy-policy/
       - /contact/
@@ -152,6 +221,7 @@ companies:
       - github_actions
       - site_http
       - daily_post_previous_day
+      - latest_post_uniqueness
       - adsense_pages
 
   - id: world-classics-jp
@@ -162,12 +232,32 @@ companies:
     enabled: true
     portal_visible: true
     adsense_required: true
+    content_monitoring_kind: serial
+    serial_rule:
+      source_type: json
+      source_url: https://raw.githubusercontent.com/garyohosu/WorldClassicsJP/main/data/state.json
+      date_path: last_processed_date
+      progress_path: current_part
+      date_format: '%Y-%m-%d'
+      timezone: Asia/Tokyo
+      stagnant_days: 1
+      expected_min_progress_value: 2
+      progress_display_offset: 1
+      label: フランケンシュタイン
+      work_label: フランケンシュタイン
+      url_template: /works/frankenstein/part-{progress_value:03d}/
+      stalled_message_template: '{label}第{display_progress_value}章から進行停止'
+      repo_state_path: data/state.json
+      repo_progress_path: current_part
+      repo_date_path: last_processed_date
+      allow_workflow_rerun_on_state_stuck: false
     required_adsense_pages:
       - /privacy-policy/
       - /contact/
     checks:
       - github_actions
       - site_http
+      - serial_progress
       - adsense_pages
 
   - id: writer

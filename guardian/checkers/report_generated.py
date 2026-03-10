@@ -1,6 +1,9 @@
 import os
+import logging
 from datetime import datetime, date, timedelta
 from guardian.models import CheckResult, CheckStatus, CheckKind, ErrorCode, TriggerKind
+
+logger = logging.getLogger(__name__)
 
 
 class ReportGeneratedChecker:
@@ -12,6 +15,7 @@ class ReportGeneratedChecker:
         company_id = company["id"]
         target_date = self._resolve_target_date(self.trigger)
         path = f"reports/daily/{target_date}.md"
+        logger.debug("target=%s checker=report_generated path=%s trigger=%s", company_id, path, self.trigger.value.lower())
 
         if os.path.exists(path):
             return CheckResult(

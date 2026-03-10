@@ -1,10 +1,12 @@
 import os
+import logging
 import requests
 from datetime import datetime
 from guardian.models import CheckResult, CheckStatus, CheckKind, ErrorCode
 
 _FAILED_CONCLUSIONS = {"failure", "cancelled", "timed_out", "action_required"}
 _PENDING_STATUSES = {"in_progress", "queued", "waiting", "requested"}
+logger = logging.getLogger(__name__)
 
 
 class GithubActionsChecker:
@@ -16,6 +18,7 @@ class GithubActionsChecker:
         repo_visibility = company["repo_visibility"] if isinstance(company, dict) else company.repo_visibility
         github_auth_required = company["github_auth_required"] if isinstance(company, dict) else company.github_auth_required
         token = os.environ.get("GITHUB_TOKEN", "")
+        logger.debug("target=%s checker=github_actions repo=%s workflow=%s has_token=%s", company_id, repo, workflow, "yes" if token else "no")
 
         if (github_auth_required or repo_visibility == "private") and not token:
             return CheckResult(
@@ -28,6 +31,7 @@ class GithubActionsChecker:
             )
 
         run = self._fetch_latest_run(repo, workflow)
+        logger.debug("target=%s checker=github_actions latest_run=%s", company_id, run)
 
         if run is None:
             return CheckResult(

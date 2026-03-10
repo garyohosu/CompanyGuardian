@@ -116,6 +116,43 @@ class TestIncidentRecorderCreate:
         incident = recorder.create([warning_result], company)
         assert incident is None
 
+    def test_create_keeps_cause_and_fix_result_for_content_incident(self):
+        from guardian.incident_recorder import IncidentRecorder
+        from guardian.models import ContentIncidentAnalysis, AutoFixResult
+
+        recorder = IncidentRecorder()
+        company = _make_company()
+        results = [_make_error_result(error_code="STALE_CONTENT", detail="最新記事が 2026-03-07 で停止")]
+        analysis = ContentIncidentAnalysis(
+            company_id="test-co",
+            error_code=results[0].error_code,
+            cause_code="WORKFLOW_FAILED",
+            cause_summary="latest_run=completed/failure",
+            recommended_fix="workflow rerun",
+        )
+        fix = AutoFixResult(
+            target_id="test-co",
+            fix_kind="content_autofix",
+            status="OK",
+            message="test-co workflow を 1 回再実行",
+        )
+        verify = AutoFixResult(
+            target_id="test-co",
+            fix_kind="content_autofix_verify",
+            status="FAIL",
+            message="test-co 再確認後も未解決: 最新記事が 2026-03-07 で停止",
+        )
+
+        incident = recorder.create(
+            results,
+            company,
+            content_context={"analysis": analysis, "fix": fix, "verification_fix": verify},
+        )
+
+        assert incident.cause_code == "WORKFLOW_FAILED"
+        assert "再実行" in incident.executed_fix
+        assert "未解決" in incident.fix_result
+
 
 class TestIncidentRecorderSave:
 

@@ -1,6 +1,9 @@
+import logging
 import requests
 from datetime import datetime
 from guardian.models import CheckResult, CheckStatus, CheckKind, ErrorCode
+
+logger = logging.getLogger(__name__)
 
 
 class ArtifactChecker:
@@ -9,6 +12,7 @@ class ArtifactChecker:
         company_id = company["id"]
         site = company["site"] if isinstance(company, dict) else company.site
         artifacts = company["required_artifacts"] if isinstance(company, dict) else company.required_artifacts
+        logger.debug("target=%s checker=artifact site=%s artifact_count=%d", company_id, site, len(artifacts or []))
 
         if not artifacts:
             return CheckResult(
@@ -34,6 +38,7 @@ class ArtifactChecker:
                         missing.append(apath)
                 except Exception:
                     missing.append(apath)
+                    logger.debug("target=%s checker=artifact missing_path=%s", company_id, apath)
             else:
                 has_unsupported = True
 
