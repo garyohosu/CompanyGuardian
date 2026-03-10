@@ -21,10 +21,10 @@ latest_run=completed/failure/2026-03-10T02:11:58Z / latest_success=none / latest
 workflow を 1 回 rerun
 
 ## 実施した修正
-womens-magazine は GITHUB_TOKEN 未設定のため自動修正スキップ
+womens-magazine workflow を 1 回再実行 (auth=gh_cli)
 
 ## 修正結果
-womens-magazine は GITHUB_TOKEN 未設定のため自動修正スキップ
+womens-magazine 再確認後も未解決: 最新記事が 2026-03-07 で停止
 
 ## 次アクション
 workflow を 1 回 rerun

@@ -21,10 +21,10 @@ duplicate_fields=title / latest_repo_exists=False / previous_repo_exists=True / 
 当日生成物を再取得して再 publish
 
 ## 実施した修正
-aozora-daily-translations は GITHUB_TOKEN 未設定のため自動修正スキップ
+aozora-daily-translations deploy workflow を 1 回再実行 (auth=gh_cli)
 
 ## 修正結果
-aozora-daily-translations は GITHUB_TOKEN 未設定のため自動修正スキップ
+aozora-daily-translations 再確認後も未解決: 2026-03-08 と 2026-03-09 の投稿内容が重複
 
 ## 次アクション
 当日生成物を再取得して再 publish
