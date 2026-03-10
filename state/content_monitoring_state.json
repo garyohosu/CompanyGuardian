@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-03-11T08:46:33.211660",
+    "last_checked_at": "2026-03-11T08:54:23.221362",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-03-10",
@@ -10,17 +10,17 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-03-11T08:47:02.468395",
+    "last_checked_at": "2026-03-11T08:54:33.560716",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-09",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-03-09-the-god-agni/index.html",
+    "last_seen_content_hash": "5844401c57b92d23e1a48a0afe9d953a6bda201108fec6ccfc67680d0df0ad36",
+    "last_seen_latest_date": "2026-03-11",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-03-11-feeling-like-an-elder-brother/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "The God Agni",
+    "last_seen_title": "Feeling Like an Elder Brother",
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-03-11T08:46:56.172593",
+    "last_checked_at": "2026-03-11T08:54:48.231374",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-03-07",
@@ -30,7 +30,7 @@
     "target_id": "womens-magazine"
   },
   "world-classics-jp": {
-    "last_checked_at": "2026-03-11T08:46:45.444781",
+    "last_checked_at": "2026-03-11T08:54:37.584640",
     "last_progress_changed_at": "2026-03-10T16:36:51.564787",
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-03-08",

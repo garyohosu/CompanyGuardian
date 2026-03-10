@@ -15,7 +15,7 @@
 WORKFLOW_FAILED
 
 ## 原因要約
-latest_run=completed/failure/2026-03-10T08:15:28Z / latest_success=none / latest_commit=2026-03-10T02:49:54Z / site_latest=2026-03-07 / repo_content_exists=False / failure_reason=generate::Generate articles=failure | generate::Install Jekyll=skipped | generate::Build site (sanity check)=skipped
+latest_run=completed/failure/2026-03-10T23:47:13Z / latest_success=none / latest_commit=2026-03-10T23:49:11Z / site_latest=2026-03-07 / repo_content_exists=False / failure_reason=generate::Generate articles=failure | generate::Install Jekyll=skipped | generate::Build site (sanity check)=skipped
 
 ## 推奨修正
 workflow を 1 回 rerun
@@ -30,7 +30,7 @@ womens-magazine 再確認後も未解決: 最新記事が 2026-03-07 で停止
 workflow を 1 回 rerun
 
 ## 原因
-latest_run=completed/failure/2026-03-10T08:15:28Z / latest_success=none / latest_commit=2026-03-10T02:49:54Z / site_latest=2026-03-07 / repo_content_exists=False / failure_reason=generate::Generate articles=failure | generate::Install Jekyll=skipped | generate::Build site (sanity check)=skipped
+latest_run=completed/failure/2026-03-10T23:47:13Z / latest_success=none / latest_commit=2026-03-10T23:49:11Z / site_latest=2026-03-07 / repo_content_exists=False / failure_reason=generate::Generate articles=failure | generate::Install Jekyll=skipped | generate::Build site (sanity check)=skipped
 
 ## 関連 countermeasure
 
