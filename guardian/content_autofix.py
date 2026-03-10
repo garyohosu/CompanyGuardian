@@ -1,4 +1,3 @@
-import os
 import logging
 
 from guardian.checkers.daily_post import DailyPostChecker
@@ -13,8 +12,8 @@ logger = logging.getLogger(__name__)
 
 
 class ContentAutoFixer:
-    def __init__(self):
-        self._github = GitHubRepoClient()
+    def __init__(self, github_client: GitHubRepoClient | None = None):
+        self._github = github_client or GitHubRepoClient()
 
     def apply(
         self,
@@ -30,10 +29,11 @@ class ContentAutoFixer:
         deploy_workflow = analysis.diagnostics.get("deploy_workflow")
         action = analysis.diagnostics.get("suggested_action")
         logger.info(
-            "target=%s autofix start fix=%s cause_code=%s",
+            "target=%s autofix start fix=%s cause_code=%s auth_mode=%s",
             company_id,
             action or "none",
             analysis.cause_code,
+            self._github.get_auth_status().mode,
         )
 
         if not action:
@@ -52,13 +52,14 @@ class ContentAutoFixer:
             )
             return result_fix
 
-        if not os.environ.get("GITHUB_TOKEN", ""):
+        auth_status = self._github.get_auth_status()
+        if auth_status.mode == "none":
             result_fix = AutoFixResult(
                 target_id=company_id,
                 fix_kind="content_autofix",
                 status="SKIP",
-                message=f"{company_id} は GITHUB_TOKEN 未設定のため自動修正スキップ",
-                context={"cause_code": analysis.cause_code, "action": action},
+                message=f"{company_id} は GitHub 認証手段なし (auth=none) のため自動修正スキップ",
+                context={"cause_code": analysis.cause_code, "action": action, "auth_mode": auth_status.mode},
             )
             logger.info(
                 "target=%s autofix=content_autofix result=%s message=\"%s\"",
@@ -83,8 +84,13 @@ class ContentAutoFixer:
                     target_id=company_id,
                     fix_kind="content_autofix",
                     status="OK",
-                    message=f"{company_id} workflow を 1 回再実行",
-                    context={"action": action, "cause_code": analysis.cause_code, "http_status": status_code},
+                    message=f"{company_id} workflow を 1 回再実行 (auth={auth_status.mode})",
+                    context={
+                        "action": action,
+                        "cause_code": analysis.cause_code,
+                        "http_status": status_code,
+                        "auth_mode": auth_status.mode,
+                    },
                 )
                 logger.info(
                     "target=%s autofix=content_autofix result=%s message=\"%s\"",
@@ -93,7 +99,7 @@ class ContentAutoFixer:
                     result_fix.message,
                 )
                 return result_fix
-            return self._fail(company_id, analysis, action, f"rerun API 失敗: HTTP {status_code}")
+            return self._fail(company_id, analysis, action, f"rerun API 失敗: HTTP {status_code}", auth_status.mode)
 
         if action in {"dispatch_workflow", "dispatch_deploy"}:
             chosen_workflow = deploy_workflow if action == "dispatch_deploy" and deploy_workflow else workflow
@@ -110,8 +116,13 @@ class ContentAutoFixer:
                     target_id=company_id,
                     fix_kind="content_autofix",
                     status="OK",
-                    message=f"{company_id} {label}",
-                    context={"action": action, "cause_code": analysis.cause_code, "http_status": status_code},
+                    message=f"{company_id} {label} (auth={auth_status.mode})",
+                    context={
+                        "action": action,
+                        "cause_code": analysis.cause_code,
+                        "http_status": status_code,
+                        "auth_mode": auth_status.mode,
+                    },
                 )
                 logger.info(
                     "target=%s autofix=content_autofix result=%s message=\"%s\"",
@@ -120,7 +131,13 @@ class ContentAutoFixer:
                     result_fix.message,
                 )
                 return result_fix
-            return self._fail(company_id, analysis, action, f"workflow dispatch 失敗: HTTP {status_code}")
+            return self._fail(
+                company_id,
+                analysis,
+                action,
+                f"workflow dispatch 失敗: HTTP {status_code}",
+                auth_status.mode,
+            )
 
         return self._skip(company_id, analysis, action, "未対応の自動修正 action")
 
@@ -192,7 +209,11 @@ class ContentAutoFixer:
             fix_kind="content_autofix",
             status="SKIP",
             message=f"{company_id} は {reason}",
-            context={"cause_code": analysis.cause_code, "action": action},
+            context={
+                "cause_code": analysis.cause_code,
+                "action": action,
+                "auth_mode": self._github.get_auth_status().mode,
+            },
         )
         logger.info(
             "target=%s autofix=%s result=%s message=\"%s\"",
@@ -203,13 +224,24 @@ class ContentAutoFixer:
         )
         return result_fix
 
-    def _fail(self, company_id: str, analysis: ContentIncidentAnalysis, action: str, reason: str) -> AutoFixResult:
+    def _fail(
+        self,
+        company_id: str,
+        analysis: ContentIncidentAnalysis,
+        action: str,
+        reason: str,
+        auth_mode: str | None = None,
+    ) -> AutoFixResult:
         result_fix = AutoFixResult(
             target_id=company_id,
             fix_kind="content_autofix",
             status="FAIL",
-            message=f"{company_id} 自動修正失敗: {reason}",
-            context={"cause_code": analysis.cause_code, "action": action},
+            message=f"{company_id} 自動修正失敗: {reason} (auth={auth_mode or self._github.get_auth_status().mode})",
+            context={
+                "cause_code": analysis.cause_code,
+                "action": action,
+                "auth_mode": auth_mode or self._github.get_auth_status().mode,
+            },
         )
         logger.warning(
             "target=%s autofix=%s result=%s message=\"%s\"",

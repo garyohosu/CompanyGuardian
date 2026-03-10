@@ -7,6 +7,7 @@ AutoFixer のテスト
 import pytest
 import os
 from unittest.mock import patch, MagicMock
+from guardian.github_auth import GitHubAuthStatus
 
 
 class TestAutoFixerReadme:
@@ -100,19 +101,18 @@ class TestAutoFixerGithubActions:
         assert result.status == "SKIP"
 
     def test_skip_when_no_token(self):
-        """GITHUB_TOKEN 未設定の場合はスキップ"""
+        """認証手段なしの場合はスキップ"""
         fixer = self._make_fixer()
-        with patch.dict("os.environ", {}, clear=True):
-            if "GITHUB_TOKEN" in __import__("os").environ:
-                pass
+        with patch.object(fixer._github, "get_auth_status", return_value=GitHubAuthStatus(mode="none")):
             result = fixer.retry_github_actions_if_applicable("test-co", "org/repo")
         assert result.status == "SKIP"
+        assert "GitHub 認証手段なし" in result.message
 
     def test_skip_when_conclusion_is_cancelled(self):
         """conclusion=cancelled は再試行対象外"""
         fixer = self._make_fixer()
         mock_run = {"id": 123, "conclusion": "cancelled", "status": "completed"}
-        with patch.dict("os.environ", {"GITHUB_TOKEN": "fake-token"}):
+        with patch.object(fixer._github, "get_auth_status", return_value=GitHubAuthStatus(mode="env_token")):
             with patch.object(fixer, "_fetch_latest_run", return_value=mock_run):
                 result = fixer.retry_github_actions_if_applicable("test-co", "org/repo")
         assert result.status == "SKIP"
@@ -122,7 +122,7 @@ class TestAutoFixerGithubActions:
         """conclusion=timed_out は再試行対象外"""
         fixer = self._make_fixer()
         mock_run = {"id": 123, "conclusion": "timed_out", "status": "completed"}
-        with patch.dict("os.environ", {"GITHUB_TOKEN": "fake-token"}):
+        with patch.object(fixer._github, "get_auth_status", return_value=GitHubAuthStatus(mode="env_token")):
             with patch.object(fixer, "_fetch_latest_run", return_value=mock_run):
                 result = fixer.retry_github_actions_if_applicable("test-co", "org/repo")
         assert result.status == "SKIP"
@@ -131,10 +131,9 @@ class TestAutoFixerGithubActions:
         """conclusion=failure で未試行なら 1 回再試行する"""
         fixer = self._make_fixer()
         mock_run = {"id": 456, "conclusion": "failure", "status": "completed"}
-        mock_resp = MagicMock(status_code=201)
-        with patch.dict("os.environ", {"GITHUB_TOKEN": "fake-token"}):
+        with patch.object(fixer._github, "get_auth_status", return_value=GitHubAuthStatus(mode="env_token")):
             with patch.object(fixer, "_fetch_latest_run", return_value=mock_run):
-                with patch("guardian.auto_fixer.requests.post", return_value=mock_resp):
+                with patch.object(fixer._github, "rerun_failed_jobs", return_value=(True, 201)):
                     result = fixer.retry_github_actions_if_applicable("test-co", "org/repo")
         assert result.status == "WARN"
         assert "再試行" in result.message
@@ -143,10 +142,9 @@ class TestAutoFixerGithubActions:
         """同一 run_id は 2 回目以降スキップされる"""
         fixer = self._make_fixer()
         mock_run = {"id": 789, "conclusion": "failure", "status": "completed"}
-        mock_resp = MagicMock(status_code=201)
-        with patch.dict("os.environ", {"GITHUB_TOKEN": "fake-token"}):
+        with patch.object(fixer._github, "get_auth_status", return_value=GitHubAuthStatus(mode="env_token")):
             with patch.object(fixer, "_fetch_latest_run", return_value=mock_run):
-                with patch("guardian.auto_fixer.requests.post", return_value=mock_resp):
+                with patch.object(fixer._github, "rerun_failed_jobs", return_value=(True, 201)):
                     first = fixer.retry_github_actions_if_applicable("test-co", "org/repo")
                     second = fixer.retry_github_actions_if_applicable("test-co", "org/repo")
 
@@ -158,17 +156,28 @@ class TestAutoFixerGithubActions:
         """再試行 API が 4xx を返した場合 FAIL"""
         fixer = self._make_fixer()
         mock_run = {"id": 999, "conclusion": "failure", "status": "completed"}
-        mock_resp = MagicMock(status_code=403)
-        with patch.dict("os.environ", {"GITHUB_TOKEN": "fake-token"}):
+        with patch.object(fixer._github, "get_auth_status", return_value=GitHubAuthStatus(mode="env_token")):
             with patch.object(fixer, "_fetch_latest_run", return_value=mock_run):
-                with patch("guardian.auto_fixer.requests.post", return_value=mock_resp):
+                with patch.object(fixer._github, "rerun_failed_jobs", return_value=(False, 403)):
                     result = fixer.retry_github_actions_if_applicable("test-co", "org/repo")
         assert result.status == "FAIL"
 
     def test_skip_when_run_fetch_fails(self):
         """最新 run 取得失敗時はスキップ"""
         fixer = self._make_fixer()
-        with patch.dict("os.environ", {"GITHUB_TOKEN": "fake-token"}):
+        with patch.object(fixer._github, "get_auth_status", return_value=GitHubAuthStatus(mode="env_token")):
             with patch.object(fixer, "_fetch_latest_run", return_value=None):
                 result = fixer.retry_github_actions_if_applicable("test-co", "org/repo")
         assert result.status == "SKIP"
+
+    def test_gh_cli_auth_allows_retry(self):
+        """gh auth 済みなら GITHUB_TOKEN なしでも再試行する"""
+        fixer = self._make_fixer()
+        mock_run = {"id": 222, "conclusion": "failure", "status": "completed"}
+        with patch.object(fixer._github, "get_auth_status", return_value=GitHubAuthStatus(mode="gh_cli")):
+            with patch.object(fixer, "_fetch_latest_run", return_value=mock_run):
+                with patch.object(fixer._github, "rerun_failed_jobs", return_value=(True, 201)):
+                    result = fixer.retry_github_actions_if_applicable("test-co", "org/repo")
+
+        assert result.status == "WARN"
+        assert "auth=gh_cli" in result.message

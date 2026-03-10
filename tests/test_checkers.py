@@ -405,8 +405,9 @@ class TestGithubActionsChecker:
         assert result.status.value == "WARNING"
 
     def test_returns_warning_when_private_repo_requires_auth(self):
-        """private repo で token がなければ WARNING / GITHUB_AUTH_REQUIRED"""
+        """private repo で認証手段がなければ WARNING / GITHUB_AUTH_REQUIRED"""
         from guardian.checkers.github_actions import GithubActionsChecker
+        from guardian.github_auth import GitHubAuthStatus
         checker = GithubActionsChecker()
         company = self._make_company(
             repo="org/private-repo",
@@ -414,39 +415,34 @@ class TestGithubActionsChecker:
         )
         company["repo_visibility"] = "private"
         company["github_auth_required"] = True
-        with patch.dict("os.environ", {}, clear=True):
+        with patch.object(checker._github, "get_auth_status", return_value=GitHubAuthStatus(mode="none")):
             result = checker.check(company)
         assert result.status.value == "WARNING"
         assert result.error_code.value == "GITHUB_AUTH_REQUIRED"
 
-    def test_fetch_latest_run_uses_workflow_endpoint_when_workflow_specified(self):
-        """workflow 指定時は workflow runs endpoint を使う"""
+    def test_private_repo_with_gh_cli_does_not_raise_auth_required(self):
+        """gh auth 済みなら private repo でも認証不足扱いしない"""
         from guardian.checkers.github_actions import GithubActionsChecker
+        from guardian.github_auth import GitHubAuthStatus
         checker = GithubActionsChecker()
-        response = MagicMock()
-        response.json.return_value = {
-            "workflow_runs": [{"conclusion": "success", "status": "completed"}]
-        }
-        response.raise_for_status.return_value = None
-        with patch("guardian.checkers.github_actions.requests.get", return_value=response) as mock_get:
-            run = checker._fetch_latest_run("org/repo", "build.yml")
-        assert run["conclusion"] == "success"
-        url = mock_get.call_args[0][0]
-        assert url.endswith("/actions/workflows/build.yml/runs")
+        company = self._make_company(repo="org/private-repo", workflow="build.yml")
+        company["repo_visibility"] = "private"
+        company["github_auth_required"] = True
+        with patch.object(checker._github, "get_auth_status", return_value=GitHubAuthStatus(mode="gh_cli")):
+            with patch.object(checker, "_fetch_latest_run", return_value=None):
+                result = checker.check(company)
+        assert result.error_code is None
+        assert result.detail == "実行履歴なし"
 
-    def test_fetch_latest_run_uses_repo_runs_endpoint_when_workflow_missing(self):
-        """workflow 未指定時は repo 全体の runs endpoint を使う"""
+    def test_fetch_latest_run_uses_shared_client(self):
+        """_fetch_latest_run は GitHubRepoClient を通す"""
         from guardian.checkers.github_actions import GithubActionsChecker
         checker = GithubActionsChecker()
-        response = MagicMock()
-        response.json.return_value = {
-            "workflow_runs": [{"conclusion": "success", "status": "completed"}]
-        }
-        response.raise_for_status.return_value = None
-        with patch("guardian.checkers.github_actions.requests.get", return_value=response) as mock_get:
-            checker._fetch_latest_run("org/repo", None)
-        url = mock_get.call_args[0][0]
-        assert url.endswith("/actions/runs")
+        expected = {"conclusion": "success", "status": "completed"}
+        with patch.object(checker._github, "get_latest_workflow_run", return_value=expected) as mock_latest:
+            run = checker._fetch_latest_run("org/repo", "build.yml")
+        mock_latest.assert_called_once_with("org/repo", "build.yml")
+        assert run == expected
 
 
 # ---------------------------------------------------------------------------

@@ -1,8 +1,8 @@
 import os
 import shutil
 import logging
-import requests
 from guardian.models import AutoFixResult
+from guardian.github_client import GitHubRepoClient
 
 logger = logging.getLogger(__name__)
 
@@ -15,6 +15,9 @@ _RETRYABLE_CONCLUSIONS = {"failure"}
 
 class AutoFixer:
     """低リスクな自動修正を実施するクラス。"""
+
+    def __init__(self, github_client: GitHubRepoClient | None = None):
+        self._github = github_client or GitHubRepoClient()
 
     def fix_readme_if_needed(self) -> AutoFixResult | None:
         """README.md が無く README.txt がある場合、コピーして修正する。
@@ -58,7 +61,7 @@ class AutoFixer:
 
         再試行しない条件:
         - repo 未設定
-        - GITHUB_TOKEN 未設定
+        - GitHub 認証手段なし
         - 最新 run が取得できない
         - conclusion が failure 以外（cancelled, timed_out, action_required 等）
         - 同一 run_id を既に再試行済み
@@ -74,22 +77,30 @@ class AutoFixer:
                 message="repo 未設定のため再試行スキップ",
             )
 
-        token = os.environ.get("GITHUB_TOKEN", "")
-        if not token:
+        auth_status = self._github.get_auth_status()
+        logger.info(
+            "target=%s autofix start fix=github_actions_retry repo=%s auth_mode=%s",
+            company_id,
+            repo,
+            auth_status.mode,
+        )
+        if auth_status.mode == "none":
             return AutoFixResult(
                 target_id=company_id,
                 fix_kind="github_actions_retry",
                 status="SKIP",
-                message="GITHUB_TOKEN 未設定のため再試行スキップ",
+                message="GitHub 認証手段なし (auth=none) のため再試行スキップ",
+                context={"auth_mode": auth_status.mode},
             )
 
-        run = self._fetch_latest_run(repo, token)
+        run = self._fetch_latest_run(repo)
         if run is None:
             return AutoFixResult(
                 target_id=company_id,
                 fix_kind="github_actions_retry",
                 status="SKIP",
                 message="最新 run 取得失敗のためスキップ",
+                context={"auth_mode": auth_status.mode},
             )
 
         conclusion = run.get("conclusion")
@@ -101,6 +112,7 @@ class AutoFixer:
                 fix_kind="github_actions_retry",
                 status="SKIP",
                 message=f"conclusion={conclusion} は再試行対象外（failure のみ対象）",
+                context={"auth_mode": auth_status.mode},
             )
 
         key = (repo, run_id)
@@ -110,20 +122,19 @@ class AutoFixer:
                 fix_kind="github_actions_retry",
                 status="SKIP",
                 message=f"run_id={run_id} は既に再試行済みのためスキップ",
+                context={"auth_mode": auth_status.mode},
             )
 
         try:
-            url = f"https://api.github.com/repos/{repo}/actions/runs/{run_id}/rerun-failed-jobs"
-            headers = {
-                "Accept": "application/vnd.github+json",
-                "Authorization": f"Bearer {token}",
-            }
-            resp = requests.post(url, headers=headers, timeout=15)
+            ok, status_code = self._github.rerun_failed_jobs(repo, int(run_id))
             _retried_runs.add(key)
 
-            if resp.status_code in (201, 204):
+            if ok:
                 logger.info(
-                    f"[AUTO_FIX] {company_id} run_id={run_id} 再試行リクエスト送信"
+                    "[AUTO_FIX] %s run_id=%s 再試行リクエスト送信 auth_mode=%s",
+                    company_id,
+                    run_id,
+                    auth_status.mode,
                 )
                 return AutoFixResult(
                     target_id=company_id,
@@ -131,36 +142,26 @@ class AutoFixer:
                     status="WARN",
                     message=(
                         f"{company_id} workflow を 1 回再試行したが失敗継続かは未確定"
-                        f" (run_id={run_id})"
+                        f" (run_id={run_id}, auth={auth_status.mode})"
                     ),
+                    context={"auth_mode": auth_status.mode, "http_status": status_code},
                 )
             else:
                 return AutoFixResult(
                     target_id=company_id,
                     fix_kind="github_actions_retry",
                     status="FAIL",
-                    message=f"run_id={run_id} 再試行 API 失敗: HTTP {resp.status_code}",
+                    message=f"run_id={run_id} 再試行 API 失敗: HTTP {status_code} (auth={auth_status.mode})",
+                    context={"auth_mode": auth_status.mode, "http_status": status_code},
                 )
         except Exception as e:
             return AutoFixResult(
                 target_id=company_id,
                 fix_kind="github_actions_retry",
                 status="FAIL",
-                message=f"run_id={run_id} 再試行例外: {e}",
+                message=f"run_id={run_id} 再試行例外: {e} (auth={auth_status.mode})",
+                context={"auth_mode": auth_status.mode},
             )
 
-    def _fetch_latest_run(self, repo: str, token: str) -> dict | None:
-        headers = {
-            "Accept": "application/vnd.github+json",
-            "Authorization": f"Bearer {token}",
-        }
-        url = f"https://api.github.com/repos/{repo}/actions/runs"
-        try:
-            resp = requests.get(
-                url, headers=headers, params={"per_page": 1}, timeout=15
-            )
-            resp.raise_for_status()
-            runs = resp.json().get("workflow_runs", [])
-            return runs[0] if runs else None
-        except Exception:
-            return None
+    def _fetch_latest_run(self, repo: str) -> dict | None:
+        return self._github.get_latest_workflow_run(repo)

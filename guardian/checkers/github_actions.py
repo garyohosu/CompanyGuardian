@@ -1,15 +1,16 @@
-import os
 import logging
-import requests
 from datetime import datetime
+
+from guardian.github_client import GitHubRepoClient
 from guardian.models import CheckResult, CheckStatus, CheckKind, ErrorCode
 
 _FAILED_CONCLUSIONS = {"failure", "cancelled", "timed_out", "action_required"}
-_PENDING_STATUSES = {"in_progress", "queued", "waiting", "requested"}
 logger = logging.getLogger(__name__)
 
 
 class GithubActionsChecker:
+    def __init__(self, github_client: GitHubRepoClient | None = None):
+        self._github = github_client or GitHubRepoClient()
 
     def check(self, company) -> CheckResult:
         company_id = company["id"]
@@ -17,10 +18,16 @@ class GithubActionsChecker:
         workflow = company["workflow"] if isinstance(company, dict) else company.workflow
         repo_visibility = company["repo_visibility"] if isinstance(company, dict) else company.repo_visibility
         github_auth_required = company["github_auth_required"] if isinstance(company, dict) else company.github_auth_required
-        token = os.environ.get("GITHUB_TOKEN", "")
-        logger.debug("target=%s checker=github_actions repo=%s workflow=%s has_token=%s", company_id, repo, workflow, "yes" if token else "no")
+        auth_status = self._github.get_auth_status()
+        logger.debug(
+            "target=%s checker=github_actions repo=%s workflow=%s auth_mode=%s",
+            company_id,
+            repo,
+            workflow,
+            auth_status.mode,
+        )
 
-        if (github_auth_required or repo_visibility == "private") and not token:
+        if (github_auth_required or repo_visibility == "private") and auth_status.mode == "none":
             return CheckResult(
                 company_id=company_id,
                 check_kind=CheckKind.GITHUB_ACTIONS,
@@ -66,7 +73,6 @@ class GithubActionsChecker:
                 checked_at=datetime.now(),
             )
 
-        # in_progress / queued / no conclusion
         return CheckResult(
             company_id=company_id,
             check_kind=CheckKind.GITHUB_ACTIONS,
@@ -76,23 +82,5 @@ class GithubActionsChecker:
             checked_at=datetime.now(),
         )
 
-    def _fetch_latest_run(self, repo: str, workflow: str) -> dict:
-        token = os.environ.get("GITHUB_TOKEN", "")
-        headers = {"Accept": "application/vnd.github+json"}
-        if token:
-            headers["Authorization"] = f"Bearer {token}"
-
-        params = {"per_page": 1}
-        if workflow:
-            url = f"https://api.github.com/repos/{repo}/actions/workflows/{workflow}/runs"
-        else:
-            url = f"https://api.github.com/repos/{repo}/actions/runs"
-
-        try:
-            resp = requests.get(url, headers=headers, params=params, timeout=15)
-            resp.raise_for_status()
-            data = resp.json()
-            runs = data.get("workflow_runs", [])
-            return runs[0] if runs else None
-        except Exception:
-            return None
+    def _fetch_latest_run(self, repo: str, workflow: str) -> dict | None:
+        return self._github.get_latest_workflow_run(repo, workflow)

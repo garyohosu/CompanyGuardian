@@ -10,8 +10,8 @@ logger = logging.getLogger(__name__)
 
 
 class ContentIncidentAnalyzer:
-    def __init__(self):
-        self._github = GitHubRepoClient()
+    def __init__(self, github_client: GitHubRepoClient | None = None):
+        self._github = github_client or GitHubRepoClient()
 
     def analyze(self, company, result: CheckResult) -> ContentIncidentAnalysis:
         logger.info(

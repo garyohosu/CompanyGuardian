@@ -25,6 +25,7 @@ from guardian.git_pusher import GitPusher
 from guardian.auto_fixer import AutoFixer
 from guardian.content_incident_analyzer import ContentIncidentAnalyzer
 from guardian.content_autofix import ContentAutoFixer
+from guardian.github_client import GitHubRepoClient
 
 logger = logging.getLogger(__name__)
 STATE_FILE_PATH = "state/content_monitoring_state.json"
@@ -49,13 +50,14 @@ class CompanyGuardianRunner:
 
     def __init__(self):
         setup_logging()
+        self._github = GitHubRepoClient()
         self._incident_recorder = IncidentRecorder()
         self._cm_manager = CountermeasureManager()
         self._report_generator = DailyReportGenerator()
         self._git_pusher = GitPusher()
-        self._auto_fixer = AutoFixer()
-        self._content_analyzer = ContentIncidentAnalyzer()
-        self._content_autofixer = ContentAutoFixer()
+        self._auto_fixer = AutoFixer(self._github)
+        self._content_analyzer = ContentIncidentAnalyzer(self._github)
+        self._content_autofixer = ContentAutoFixer(self._github)
         self._companies_by_id = {}
         self._trigger = TriggerKind.SCHEDULED
 
@@ -80,6 +82,7 @@ class CompanyGuardianRunner:
             STATE_FILE_PATH,
             "yes" if os.path.exists(STATE_FILE_PATH) else "no",
         )
+        self._github.log_auth_mode(logger)
 
         # 1. pre-check autofix: README 問題など実行継続性に関わる修正
         autofix_results = self._run_pre_check_fixes()

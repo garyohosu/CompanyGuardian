@@ -42,7 +42,9 @@ class TestCompanyGuardianRunnerRun:
 
     def _make_runner(self):
         from guardian.runner import CompanyGuardianRunner
-        return CompanyGuardianRunner()
+        runner = CompanyGuardianRunner()
+        runner._github.log_auth_mode = MagicMock()
+        return runner
 
     def test_run_calls_load_config(self):
         """run は _load_config を呼ぶ"""
@@ -159,7 +161,9 @@ class TestCompanyGuardianRunnerCheckAll:
 
     def _make_runner(self):
         from guardian.runner import CompanyGuardianRunner
-        return CompanyGuardianRunner()
+        runner = CompanyGuardianRunner()
+        runner._github.log_auth_mode = MagicMock()
+        return runner
 
     def test_check_all_returns_list_of_results(self):
         """_check_all が CheckResult のリストを返す"""
@@ -187,7 +191,9 @@ class TestCompanyGuardianRunnerHandleAnomalies:
 
     def _make_runner(self):
         from guardian.runner import CompanyGuardianRunner
-        return CompanyGuardianRunner()
+        runner = CompanyGuardianRunner()
+        runner._github.log_auth_mode = MagicMock()
+        return runner
 
     def test_handle_anomalies_creates_incident_for_error(self):
         """ERROR 結果に対して incident が作成される"""
@@ -262,7 +268,9 @@ class TestAutoFixIntegration:
 
     def _make_runner(self):
         from guardian.runner import CompanyGuardianRunner
-        return CompanyGuardianRunner()
+        runner = CompanyGuardianRunner()
+        runner._github.log_auth_mode = MagicMock()
+        return runner
 
     def test_readme_autofix_included_in_push(self):
         """README 自動コピー時、README.md が push 対象に含まれる"""
@@ -333,7 +341,7 @@ class TestAutoFixIntegration:
         )
         skip_fix = MagicMock()
         skip_fix.status = "SKIP"
-        skip_fix.message = "GITHUB_TOKEN 未設定のため再試行スキップ"
+        skip_fix.message = "GitHub 認証手段なし (auth=none) のため再試行スキップ"
         with patch.object(runner._auto_fixer,
                           "retry_github_actions_if_applicable",
                           return_value=skip_fix) as mock_retry:

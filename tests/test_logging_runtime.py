@@ -48,6 +48,26 @@ class TestRunnerLogging:
         assert any("target=demo-co check=site_http start" in msg for msg in messages)
         assert any("target=demo-co check=site_http result=OK message=\"HTTP 200\"" in msg for msg in messages)
 
+    def test_runner_logs_github_auth_mode(self, caplog):
+        from guardian.runner import CompanyGuardianRunner
+        from guardian.github_auth import GitHubAuthStatus
+        from guardian.models import TriggerKind
+
+        with patch("guardian.runner.setup_logging", return_value="logs/company_guardian.log"):
+            runner = CompanyGuardianRunner()
+
+        with caplog.at_level(logging.INFO):
+            with patch.object(runner, "_load_config", return_value=[]):
+                with patch.object(runner._github._auth, "get_auth_status", return_value=GitHubAuthStatus(mode="gh_cli")):
+                    with patch.object(runner, "_check_all", return_value=[]):
+                        with patch.object(runner, "_handle_anomalies", return_value=[]):
+                            with patch.object(runner, "_generate_report", return_value=MagicMock(file_path="reports/daily/2026-03-10.md")):
+                                with patch.object(runner, "_push_outputs", return_value=True):
+                                    runner.run(TriggerKind.SCHEDULED)
+
+        messages = [record.getMessage() for record in caplog.records]
+        assert any("github auth mode=gh_cli" in msg for msg in messages)
+
 
 class TestGitPusherLogging:
     def test_git_pusher_logs_targets_and_push_result(self, caplog):

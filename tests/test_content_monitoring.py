@@ -170,6 +170,7 @@ class TestContentIncidentAnalyzer:
 class TestContentAutoFixer:
     def test_allowed_fix_executes_rerun(self):
         from guardian.content_autofix import ContentAutoFixer, _attempted_actions
+        from guardian.github_auth import GitHubAuthStatus
         from guardian.models import ContentIncidentAnalysis
         from tests.conftest import make_company
 
@@ -190,12 +191,72 @@ class TestContentAutoFixer:
                 "suggested_action": "rerun_failed_jobs",
             },
         )
-        with patch.dict("os.environ", {"GITHUB_TOKEN": "test-token"}):
+        with patch.object(fixer._github, "get_auth_status", return_value=GitHubAuthStatus(mode="env_token")):
             with patch.object(fixer._github, "rerun_failed_jobs", return_value=(True, 201)):
                 fix = fixer.apply(company, result, analysis)
 
         assert fix.status == "OK"
         assert "再実行" in fix.message
+
+    def test_gh_cli_auth_does_not_skip_allowed_fix(self):
+        from guardian.content_autofix import ContentAutoFixer, _attempted_actions
+        from guardian.github_auth import GitHubAuthStatus
+        from guardian.models import ContentIncidentAnalysis
+        from tests.conftest import make_company
+
+        _attempted_actions.clear()
+        fixer = ContentAutoFixer()
+        company = make_company(repo="org/repo", workflow="daily.yml")
+        result = _make_result(error_code="STALE_CONTENT")
+        analysis = ContentIncidentAnalysis(
+            company_id="test-company",
+            error_code=result.error_code,
+            cause_code="WORKFLOW_FAILED",
+            cause_summary="failure",
+            recommended_fix="workflow rerun",
+            diagnostics={
+                "repo": "org/repo",
+                "workflow": "daily.yml",
+                "latest_run": {"id": 456},
+                "suggested_action": "rerun_failed_jobs",
+            },
+        )
+
+        with patch.object(fixer._github, "get_auth_status", return_value=GitHubAuthStatus(mode="gh_cli")):
+            with patch.object(fixer._github, "rerun_failed_jobs", return_value=(True, 201)):
+                fix = fixer.apply(company, result, analysis)
+
+        assert fix.status == "OK"
+        assert "auth=gh_cli" in fix.message
+
+    def test_none_auth_skips_allowed_fix(self):
+        from guardian.content_autofix import ContentAutoFixer
+        from guardian.github_auth import GitHubAuthStatus
+        from guardian.models import ContentIncidentAnalysis
+        from tests.conftest import make_company
+
+        fixer = ContentAutoFixer()
+        company = make_company(repo="org/repo", workflow="daily.yml")
+        result = _make_result(error_code="STALE_CONTENT")
+        analysis = ContentIncidentAnalysis(
+            company_id="test-company",
+            error_code=result.error_code,
+            cause_code="WORKFLOW_FAILED",
+            cause_summary="failure",
+            recommended_fix="workflow rerun",
+            diagnostics={
+                "repo": "org/repo",
+                "workflow": "daily.yml",
+                "latest_run": {"id": 456},
+                "suggested_action": "rerun_failed_jobs",
+            },
+        )
+
+        with patch.object(fixer._github, "get_auth_status", return_value=GitHubAuthStatus(mode="none")):
+            fix = fixer.apply(company, result, analysis)
+
+        assert fix.status == "SKIP"
+        assert "GitHub 認証手段なし" in fix.message
 
     def test_high_risk_fix_is_skipped(self):
         from guardian.content_autofix import ContentAutoFixer
