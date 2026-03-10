@@ -187,18 +187,44 @@ CompanyGuardian/
 - `id`: 一意な識別子
 - `name`: 表示名
 - `kind`: `portal` / `virtual_company` / `guardian`
-- `site`: 対象サイト URL
 - `enabled`: true/false
 - `checks`: 実行するチェック一覧
 
 ### 9.4 任意項目
 
+- `site`: 対象サイト URL（公開ページを持たない場合は省略可）
 - `repo`: GitHub リポジトリ名
-- `workflow`: GitHub Actions ワークフロー名
-- `required_keywords`: トップページにあるべき文字列一覧
-- `required_paths`: 存在確認したいパス一覧
+- `workflow`: GitHub Actions ワークフロー名（`github_actions` チェック時は明示推奨）
+- `required_keywords`: トップページにあるべき文字列一覧（`top_page_keyword` チェック時に使用）
+- `required_paths`: サイト URL 配下の必須パス一覧（`<site><path>` を HTTP 確認する。リポジトリ内パスは別項目）
+- `required_artifacts`: 必須成果物の定義一覧（`artifact` チェック時に使用、下記参照）
 - `self_monitor`: 自己監視対象か
 - `notes`: 補足説明
+
+### 9.4.1 `required_artifacts` の形式
+
+各要素は `type` フィールドで種別を指定する。
+
+| type | 意味 | 例 |
+|------|------|----|
+| `site_path` | 公開サイト上の必須パス（初期版対応） | `/index.html`, `/feed.xml` |
+| `repo_path` | リポジトリ内必須ファイル（将来拡張） | `README.md`, `data/latest.json` |
+| `workflow_artifact` | GitHub Actions 実行物（将来拡張） | `site-build` |
+
+### 9.4.2 利用可能な `checks` 種別
+
+| 種別 | 判定条件 |
+|------|----------|
+| `site_http` | HTTP GET で 2xx → 正常、3xx → 警告、4xx/5xx → 異常 |
+| `top_page_keyword` | `required_keywords` の全要素がトップページ本文に含まれる → 正常、1つでも欠落 → 異常 |
+| `link_health` | 抽出したリンクへ HTTP HEAD/GET し、4xx/5xx → 異常 |
+| `github_actions` | 直近1回の実行結果を確認（判定詳細は §10.3 参照） |
+| `artifact` | `required_artifacts` で定義された成果物の存在確認 |
+| `report_generated` | 当日の日報ファイルが所定パスに存在する → 正常 |
+| `config_valid` | 必須設定ファイルが YAML/Markdown として構文妥当 → 正常 |
+| `self_status` | CompanyGuardian 自身の前回実行結果・必須出力有無を確認 |
+
+未知の種別が指定された場合は、警告を日報に記録してその項目のみスキップする。全体実行は止めない。
 
 ### 9.5 サンプル
 
@@ -225,11 +251,26 @@ companies:
       - site_http
       - artifact
 
+  - id: auto-ai-blog
+    name: Auto AI Blog
+    kind: virtual_company
+    repo: garyohosu/auto-ai-blog
+    site: https://hantani-portfolio.pages.dev/   # Cloudflare Pages（GitHub Pages 以外も許容）
+    workflow: deploy.yml
+    enabled: true
+    checks:
+      - github_actions
+      - site_http
+      - artifact
+    required_artifacts:
+      - type: site_path
+        path: /index.html
+
   - id: company-guardian
     name: CompanyGuardian
     kind: guardian
     repo: garyohosu/CompanyGuardian
-    site: https://example.github.io/CompanyGuardian/
+    # site は公開ページを持たない場合は省略可
     enabled: true
     self_monitor: true
     checks:
@@ -250,12 +291,18 @@ companies:
 - 手動実行も可能とする
 - 途中失敗しても可能な限り残り対象の確認を継続する
 
+### スケジュール
+- cron: `0 21 * * *`（UTC 21:00 = JST 06:00）
+- 日報ファイル名の基準日は **JST** とする
+- 手動実行（`workflow_dispatch`）時も日報を生成する
+- 同日複数回実行した場合は別ファイルを生成する（例: `2026-03-10_manual_01.md`）
+
 ### 入力
 - `companies.yaml`
 
 ### 出力
 - 実行ログ
-- 日報 Markdown
+- 日報 Markdown（`reports/daily/YYYY-MM-DD.md`、JST 基準）
 - 必要に応じた incident / countermeasure Markdown
 
 ---
@@ -284,9 +331,16 @@ companies:
 
 ### チェック項目
 - GitHub Actions の直近実行成功/失敗
-- 公開サイトの HTTP 応答
-- 必須成果物の生成有無
+- 公開サイトの HTTP 応答（ホスティング方式を問わない）
+- 必須成果物の生成有無（`required_artifacts` で定義）
 - 必要に応じトップページキーワード確認
+
+### GitHub Actions 判定ルール
+- 参照対象: `workflow` で指定したワークフローの**最新1回**（未指定の場合はリポジトリの最新1回）
+- `success` → 正常
+- `failure` / `cancelled` / `timed_out` / `action_required` → 異常（`ACTION_FAILED`）
+- `in_progress` / `queued` → 警告
+- 実行履歴が存在しない → 警告
 
 ### 異常分類例
 - `ACTION_FAILED`
@@ -347,8 +401,9 @@ companies:
 `countermeasures/CM-XXX_<Name>.md`
 
 ### 命名ルール
-- 連番: `CM-001`, `CM-002` ...
+- 連番: `CM-001`, `CM-002` ...（スクリプトが `countermeasures/` 配下を走査して自動採番）
 - 独自名: 英単語または CamelCase 推奨
+- 並行実行時の重複を避けるため、日次実行は原則1ジョブのみとする
 
 ### 命名例
 - `CM-001_GhostRetry.md`
@@ -432,7 +487,10 @@ README.md には最低限以下を記載する。
 1. 異常検出
 2. 異常分類
 3. 原因候補を整理
-4. 可能なら自動対策実施
+4. 自動対策実施（**非破壊・低リスク操作に限定**）
+   - GitHub Actions の再確認・`workflow_dispatch` による再実行
+   - 日報・incident・countermeasure の生成
+   - ※ 設定ファイル修正・コミット・プッシュ・HTML 修正は提案のみ（人間確認前提）
 5. 成否確認
 6. incident 記録
 7. 再発防止策が必要なら countermeasure 追加
@@ -522,6 +580,17 @@ README.md には最低限以下を記載する。
 - GitHub Token 等は Actions secrets で扱う
 - 自動対策は破壊的変更を避ける
 - 修復不能時は無理に続行せず、事実を日報へ記録する
+
+### 18.1 GitHub Token スコープ方針
+
+| 操作 | トークン種別 | 必要権限 |
+|------|-------------|----------|
+| 同一リポジトリ内操作 | `GITHUB_TOKEN` | デフォルトで可 |
+| 他リポジトリの Actions 状態参照 | PAT / fine-grained token | Actions: Read, Contents: Read |
+| ワークフロー再実行 | PAT / fine-grained token | Actions: Write |
+| コミット・プッシュ（将来拡張） | PAT / fine-grained token | Contents: Write |
+
+初期版では他リポジトリ監視は Read 中心とし、コミット・プッシュの自動化はスコープ外とする。
 
 ---
 
