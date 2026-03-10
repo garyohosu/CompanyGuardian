@@ -1,0 +1,217 @@
+companies:
+  # ---------- 親ポータル ----------
+  - id: root-portal
+    name: Root Portal
+    kind: portal
+    site: https://garyohosu.github.io/
+    enabled: true
+    adsense_required: true
+    required_adsense_pages:
+      - /privacy-policy/
+      - /contact/
+    required_keywords:
+      - Virtual Company
+    checks:
+      - site_http
+      - top_page_keyword
+      - link_health
+      - adsense_pages
+
+  # ---------- バーチャルカンパニー ----------
+  - id: auto-ai-blog
+    name: Auto AI Blog
+    kind: virtual_company
+    repo: garyohosu/auto-ai-blog
+    site: https://garyohosu.github.io/auto-ai-blog/
+    enabled: true
+    portal_visible: true
+    adsense_required: true
+    required_artifacts:
+      - type: site_path
+        path: /index.html
+      - type: site_path
+        path: /feed.xml
+    daily_post_strategy:
+      - feed_xml
+      - site_path_pattern
+    daily_post_locator:
+      feed_url: https://garyohosu.github.io/auto-ai-blog/feed.xml
+      path_pattern: https://garyohosu.github.io/auto-ai-blog/posts/{yyyy}/{mm}/{dd}/
+      timezone: Asia/Tokyo
+    adsense_marker_keyword: adsbygoogle
+    required_adsense_pages:
+      - /privacy-policy/
+      - /contact/
+    checks:
+      - github_actions
+      - site_http
+      - artifact
+      - daily_post_previous_day
+      - adsense_pages
+
+  - id: magic-box-ai
+    name: MagicBoxAI
+    kind: virtual_company
+    repo: garyohosu/MagicBoxAI
+    repo_visibility: private
+    github_auth_required: true
+    site: https://garyo.sakura.ne.jp/magicboxai/
+    enabled: true
+    portal_visible: true
+    adsense_required: true
+    required_adsense_pages:
+      - /privacy-policy/
+      - /contact/
+    checks:
+      - site_http
+      - adsense_pages
+
+  - id: ai-tec-blog
+    name: AITecBlog
+    kind: virtual_company
+    repo: garyohosu/AITecBlog
+    site: https://garyohosu.github.io/AITecBlog/
+    enabled: true
+    portal_visible: true
+    adsense_required: true
+    required_adsense_pages:
+      - /privacy-policy/
+      - /contact/
+    checks:
+      - github_actions
+      - site_http
+      - adsense_pages
+
+  - id: ai-broker
+    name: AI-Broker
+    kind: virtual_company
+    repo: garyohosu/ai-broker
+    site: https://garyohosu.github.io/ai-broker/
+    enabled: true
+    portal_visible: true
+    adsense_required: true
+    required_adsense_pages:
+      - /privacy-policy/
+      - /contact/
+    checks:
+      - github_actions
+      - site_http
+      - adsense_pages
+
+  - id: web-game
+    name: WebGame
+    kind: virtual_company
+    repo: garyohosu/webgame
+    site: https://garyohosu.github.io/webgame/
+    enabled: true
+    portal_visible: true
+    adsense_required: true
+    required_adsense_pages:
+      - /privacy-policy/
+      - /contact/
+    checks:
+      - github_actions
+      - site_http
+      - adsense_pages
+
+  - id: womens-magazine
+    name: WomensMagazine
+    kind: virtual_company
+    repo: garyohosu/WomensMagazine
+    site: https://garyohosu.github.io/WomensMagazine/
+    enabled: true
+    portal_visible: true
+    adsense_required: true
+    required_adsense_pages:
+      - /privacy-policy/
+      - /contact/
+    checks:
+      - github_actions
+      - site_http
+      - adsense_pages
+
+  - id: aozora-daily-translations
+    name: AozoraDailyTranslations
+    kind: virtual_company
+    repo: garyohosu/AozoraDailyTranslations
+    site: https://garyohosu.github.io/AozoraDailyTranslations/
+    enabled: true
+    portal_visible: true
+    adsense_required: true
+    daily_post_strategy:
+      - feed_xml
+      - site_path_pattern
+    daily_post_locator:
+      feed_url: https://garyohosu.github.io/AozoraDailyTranslations/feed.xml
+      path_pattern: https://garyohosu.github.io/AozoraDailyTranslations/posts/{yyyy}/{mm}/{dd}/
+      timezone: Asia/Tokyo
+    required_adsense_pages:
+      - /privacy-policy/
+      - /contact/
+    checks:
+      - github_actions
+      - site_http
+      - daily_post_previous_day
+      - adsense_pages
+
+  - id: world-classics-jp
+    name: WorldClassicsJP
+    kind: virtual_company
+    repo: garyohosu/WorldClassicsJP
+    site: https://garyohosu.github.io/WorldClassicsJP/
+    enabled: true
+    portal_visible: true
+    adsense_required: true
+    required_adsense_pages:
+      - /privacy-policy/
+      - /contact/
+    checks:
+      - github_actions
+      - site_http
+      - adsense_pages
+
+  - id: writer
+    name: Writer
+    kind: virtual_company
+    repo: garyohosu/writer
+    site: https://garyohosu.github.io/writer/
+    enabled: true
+    portal_visible: true
+    adsense_required: true
+    required_adsense_pages:
+      - /privacy-policy/
+      - /contact/
+    checks:
+      - github_actions
+      - site_http
+      - adsense_pages
+
+  - id: openclaw-blog
+    name: OpenClaw Blog
+    kind: virtual_company
+    repo: garyohosu/OpenClawBlog
+    site: https://garyohosu.github.io/OpenClawBlog/
+    enabled: true
+    portal_visible: true
+    adsense_required: true
+    required_adsense_pages:
+      - /privacy-policy/
+      - /contact/
+    checks:
+      - github_actions
+      - site_http
+      - adsense_pages
+
+  # ---------- 自己監視 ----------
+  - id: company-guardian
+    name: CompanyGuardian
+    kind: guardian
+    repo: garyohosu/CompanyGuardian
+    enabled: true
+    self_monitor: true
+    adsense_required: false
+    checks:
+      - github_actions
+      - report_generated
+      - config_valid
+      - self_status
