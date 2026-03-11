@@ -1,16 +1,16 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-03-11T08:54:23.221362",
+    "last_checked_at": "2026-03-12T06:30:34.025690",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-10",
-    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-03-10.html",
+    "last_seen_latest_date": "2026-03-11",
+    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-03-11.html",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-03-11T08:54:33.560716",
+    "last_checked_at": "2026-03-12T06:30:40.149712",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "5844401c57b92d23e1a48a0afe9d953a6bda201108fec6ccfc67680d0df0ad36",
     "last_seen_latest_date": "2026-03-11",
@@ -20,22 +20,22 @@
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-03-11T08:54:48.231374",
+    "last_checked_at": "2026-03-12T06:30:37.381866",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-07",
-    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/03/07/3000%E5%86%86%E3%81%AE%E6%AF%8E%E6%97%A5%E6%8E%83%E9%99%A4-%E5%A5%B3%E6%80%A7%E5%90%91%E3%81%91%E5%AE%9F%E8%B7%B5%E3%81%A7%E3%82%B9%E3%83%9A%E3%83%BC%E3%82%B9%E3%82%92600%E5%86%86%E3%81%A7%E5%89%8A%E6%B8%9B/",
+    "last_seen_latest_date": "2026-03-11",
+    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/03/11/%E4%B8%BB%E5%A9%A6%E3%81%8C3%E6%97%A5%E9%96%93%E3%81%A7%E5%AE%9F%E6%84%9F%E3%81%97%E3%81%9F-%E3%82%A8%E3%82%B3%E6%8E%83%E9%99%A4%E3%81%A7%E5%AE%B6%E3%81%8C%E3%81%99%E3%81%A3%E3%81%8D%E3%82%8A%E6%95%B4%E3%81%86%E5%BF%83%E5%9C%B0%E3%82%88%E3%81%84%E6%9A%AE%E3%82%89%E3%81%97/",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "womens-magazine"
   },
   "world-classics-jp": {
-    "last_checked_at": "2026-03-11T08:54:37.584640",
-    "last_progress_changed_at": "2026-03-10T16:36:51.564787",
+    "last_checked_at": "2026-03-12T06:30:45.511651",
+    "last_progress_changed_at": "2026-03-12T06:30:45.511651",
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-08",
-    "last_seen_latest_url": "https://garyohosu.github.io/works/frankenstein/part-001/",
-    "last_seen_progress_value": 1,
+    "last_seen_latest_date": "2026-03-11",
+    "last_seen_latest_url": "https://garyohosu.github.io/works/frankenstein/part-002/",
+    "last_seen_progress_value": 2,
     "last_seen_title": "フランケンシュタイン",
     "target_id": "world-classics-jp"
   }
