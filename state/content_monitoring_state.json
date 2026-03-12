@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-03-12T06:30:34.025690",
+    "last_checked_at": "2026-03-12T11:01:11.751511",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-03-11",
@@ -10,27 +10,27 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-03-12T06:30:40.149712",
+    "last_checked_at": "2026-03-12T11:01:24.896560",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "5844401c57b92d23e1a48a0afe9d953a6bda201108fec6ccfc67680d0df0ad36",
-    "last_seen_latest_date": "2026-03-11",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-03-11-feeling-like-an-elder-brother/index.html",
+    "last_seen_content_hash": "3574976d1d1192ba47a96aa05eae3110e411819989ee34078654df783c01e2b2",
+    "last_seen_latest_date": "2026-03-12",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-03-12-opium/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "Feeling Like an Elder Brother",
+    "last_seen_title": "Opium",
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-03-12T06:30:37.381866",
+    "last_checked_at": "2026-03-12T11:01:20.085785",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-11",
-    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/03/11/%E4%B8%BB%E5%A9%A6%E3%81%8C3%E6%97%A5%E9%96%93%E3%81%A7%E5%AE%9F%E6%84%9F%E3%81%97%E3%81%9F-%E3%82%A8%E3%82%B3%E6%8E%83%E9%99%A4%E3%81%A7%E5%AE%B6%E3%81%8C%E3%81%99%E3%81%A3%E3%81%8D%E3%82%8A%E6%95%B4%E3%81%86%E5%BF%83%E5%9C%B0%E3%82%88%E3%81%84%E6%9A%AE%E3%82%89%E3%81%97/",
+    "last_seen_latest_date": "2026-03-12",
+    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/03/12/%E6%9C%88%E3%81%AE%E3%83%AA%E3%82%BA%E3%83%A0%E3%81%A7%E3%82%86%E3%82%89%E3%81%90%E8%82%8C%E3%81%AB-%E7%BE%8E%E5%AE%B9%E3%83%A9%E3%82%A4%E3%82%BF%E3%83%BC%E3%81%8C%E6%9C%9D5%E5%88%86%E3%81%A7%E5%AE%9F%E6%84%9F%E3%81%97%E3%81%9F-%E6%98%A5%E3%81%AE%E4%BF%9D%E6%B9%BF%E3%83%AB%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B36%E9%81%B8/",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "womens-magazine"
   },
   "world-classics-jp": {
-    "last_checked_at": "2026-03-12T06:30:45.511651",
+    "last_checked_at": "2026-03-12T11:01:31.241043",
     "last_progress_changed_at": "2026-03-12T06:30:45.511651",
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-03-11",
