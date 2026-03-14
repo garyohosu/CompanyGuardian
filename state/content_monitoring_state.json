@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-03-14T07:13:50.549224",
+    "last_checked_at": "2026-03-15T06:30:56.055075",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-03-13",
@@ -10,32 +10,32 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-03-14T07:13:55.810817",
+    "last_checked_at": "2026-03-15T06:30:45.827200",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "257c9a573d38f6bf7ab0134bb2014d084901b7771b01fcf4e3f781b9f566d69a",
-    "last_seen_latest_date": "2026-03-13",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-03-13-a-tale-of-vendetta/index.html",
+    "last_seen_content_hash": "00a14257f977c2c64bbeb119285eca9f487ecc19dfb1ed84694e4d6a5f4e05e6",
+    "last_seen_latest_date": "2026-03-14",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-03-14-oishi-kuranosuke-on-a-certain-day/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "A Tale of Vendetta",
+    "last_seen_title": "Oishi Kuranosuke on a Certain Day",
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-03-14T07:13:54.015794",
+    "last_checked_at": "2026-03-15T06:30:43.764882",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-13",
-    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/03/13/%E6%96%B0%E7%94%9F%E6%B4%BB%E5%89%8D%E3%81%AE%E7%89%87%E3%81%A5%E3%81%91%E3%81%A7%E5%AE%B6%E3%81%8C%E3%81%99%E3%81%A3%E3%81%8D%E3%82%8A%E5%BA%83%E3%81%8F%E8%A6%8B%E3%81%88%E3%82%8B-%E9%80%B1%E6%9C%AB2%E6%99%82%E9%96%93%E3%81%A7%E3%81%A7%E3%81%8D%E3%81%9F-30%E5%80%8B%E6%89%8B%E6%94%BE%E3%81%97-%E5%8F%8E%E7%B4%8D%E3%83%AA%E3%82%BB%E3%83%83%E3%83%88%E4%BD%93%E9%A8%93/",
+    "last_seen_latest_date": "2026-03-14",
+    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/03/14/%E5%86%AC%E6%9C%8D%E3%82%92%E3%81%BE%E3%81%A0%E3%81%BE%E3%81%A0%E6%B4%BB%E7%94%A8-3%E6%9C%88%E3%81%AE%E7%9D%80%E5%9B%9E%E3%81%97%E3%81%A7%E6%9C%8D%E4%BB%A31%E4%B8%87%E5%86%86%E7%AF%80%E7%B4%84_%E4%B8%BB%E5%A9%A6%E3%81%8C%E5%AE%9F%E6%84%9F%E3%81%97%E3%81%9F-%E5%AF%92%E6%9A%96%E5%B7%AE%E3%81%AB%E5%BC%B7%E3%81%84-7%E6%97%A5%E9%96%93%E3%82%B3%E3%83%BC%E3%83%87%E8%A1%93/",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "womens-magazine"
   },
   "world-classics-jp": {
-    "last_checked_at": "2026-03-14T07:13:58.055687",
-    "last_progress_changed_at": "2026-03-14T06:30:43.500131",
+    "last_checked_at": "2026-03-15T06:30:48.329755",
+    "last_progress_changed_at": "2026-03-15T06:30:48.329755",
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-13",
-    "last_seen_latest_url": "https://garyohosu.github.io/works/frankenstein/part-004/",
-    "last_seen_progress_value": 4,
+    "last_seen_latest_date": "2026-03-14",
+    "last_seen_latest_url": "https://garyohosu.github.io/works/frankenstein/part-005/",
+    "last_seen_progress_value": 5,
     "last_seen_title": "フランケンシュタイン",
     "target_id": "world-classics-jp"
   }
