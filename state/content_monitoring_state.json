@@ -1,36 +1,36 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-03-16T06:30:52.204035",
+    "last_checked_at": "2026-03-19T06:30:52.624280",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-13",
-    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-03-13.html",
+    "last_seen_latest_date": "2026-03-16",
+    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-03-16.html",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-03-16T06:30:41.254632",
+    "last_checked_at": "2026-03-19T06:30:39.951731",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "c05eb6c7b710a34d488efb1e0dbe5cc59f981ab4f5afc9f451ecdfd2bdc051e3",
-    "last_seen_latest_date": "2026-03-15",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-03-15-dialogue-in-the-dark/index.html",
+    "last_seen_content_hash": "5c10041936cd7d1725487280213a96b8749ed64d22ef969619ec552383cc25b5",
+    "last_seen_latest_date": "2026-03-16",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-03-16-iida-dakotsu/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "Dialogue in the Dark",
+    "last_seen_title": "Iida Dakotsu",
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-03-16T06:30:39.482574",
+    "last_checked_at": "2026-03-19T06:30:55.910426",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-15",
-    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/03/15/%E5%86%AC%E6%9C%8D%E3%82%92%E6%89%8B%E6%94%BE%E3%81%97%E3%81%A6%E3%82%AF%E3%83%AD%E3%83%BC%E3%82%BC%E3%83%83%E3%83%88%E3%81%8C%E3%81%99%E3%81%A3%E3%81%8D%E3%82%8A%E5%8D%8A%E5%88%86%E3%81%AB-%E6%98%A5%E3%81%AE%E8%A1%A3%E6%9B%BF%E3%81%88%E3%81%A7%E5%A4%B1%E6%95%97%E3%81%97%E3%81%AA%E3%81%845%E3%81%A4%E3%81%AE%E5%8F%8E%E7%B4%8D%E3%83%AB%E3%83%BC%E3%83%AB/",
+    "last_seen_latest_date": "2026-03-16",
+    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/03/16/%E8%8A%B1%E7%B2%89-%E7%B4%AB%E5%A4%96%E7%B7%9A%E3%81%AB%E3%82%88%E3%82%8B-%E5%A4%95%E6%96%B9%E3%81%AE%E8%82%8C%E3%81%8F%E3%81%99%E3%81%BF-%E3%81%8C%E6%BF%80%E6%B8%9B-%E7%BE%8E%E5%AE%B9%E6%8B%85%E5%BD%93%E3%81%8C1%E9%80%B1%E9%96%93%E7%B6%9A%E3%81%91%E3%81%A6%E5%AE%9F%E6%84%9F%E3%81%97%E3%81%9F-%E6%9C%9D5%E5%88%86%E3%81%A7%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%86%E3%82%89%E3%81%8E%E8%82%8C%E5%AF%BE%E7%AD%967%E9%81%B8/",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "womens-magazine"
   },
   "world-classics-jp": {
-    "last_checked_at": "2026-03-16T06:30:43.981212",
+    "last_checked_at": "2026-03-19T06:30:42.266697",
     "last_progress_changed_at": "2026-03-16T06:30:43.981212",
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-03-15",
