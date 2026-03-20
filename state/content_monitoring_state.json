@@ -1,26 +1,26 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-03-20T06:30:31.837000",
+    "last_checked_at": "2026-03-21T06:30:35.099107",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-19",
-    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-03-19.html",
+    "last_seen_latest_date": "2026-03-20",
+    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-03-20.html",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-03-20T06:30:38.735269",
+    "last_checked_at": "2026-03-21T06:30:41.252560",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "c5e8bba78fbcf32491453c5f65f47347d6524746f5c1652f9800a4f32b201d87",
-    "last_seen_latest_date": "2026-03-19",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-03-19-last-testament/index.html",
+    "last_seen_content_hash": "8435c8fa7217f372b072c7b76854205d16cf61d4a82589f2dcf228fc08e17bf9",
+    "last_seen_latest_date": "2026-03-20",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-03-20-it-depends-on-what-you-mean-by-ism/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "Last Testament",
+    "last_seen_title": "It Depends on What You Mean by “Ism”",
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-03-20T06:30:36.457856",
+    "last_checked_at": "2026-03-21T06:30:51.394253",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-03-19",
@@ -30,12 +30,12 @@
     "target_id": "womens-magazine"
   },
   "world-classics-jp": {
-    "last_checked_at": "2026-03-20T06:30:41.089979",
-    "last_progress_changed_at": "2026-03-20T06:30:41.089979",
+    "last_checked_at": "2026-03-21T06:30:43.455836",
+    "last_progress_changed_at": "2026-03-21T06:30:43.455836",
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-16",
-    "last_seen_latest_url": "https://garyohosu.github.io/works/frankenstein/part-007/",
-    "last_seen_progress_value": 7,
+    "last_seen_latest_date": "2026-03-20",
+    "last_seen_latest_url": "https://garyohosu.github.io/works/frankenstein/part-008/",
+    "last_seen_progress_value": 8,
     "last_seen_title": "フランケンシュタイン",
     "target_id": "world-classics-jp"
   }
