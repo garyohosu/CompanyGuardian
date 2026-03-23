@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-03-21T06:30:35.099107",
+    "last_checked_at": "2026-03-24T06:30:55.644761",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-03-20",
@@ -10,7 +10,7 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-03-21T06:30:41.252560",
+    "last_checked_at": "2026-03-24T06:30:42.809295",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "8435c8fa7217f372b072c7b76854205d16cf61d4a82589f2dcf228fc08e17bf9",
     "last_seen_latest_date": "2026-03-20",
@@ -20,7 +20,7 @@
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-03-21T06:30:51.394253",
+    "last_checked_at": "2026-03-24T06:30:58.620687",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-03-19",
@@ -30,12 +30,12 @@
     "target_id": "womens-magazine"
   },
   "world-classics-jp": {
-    "last_checked_at": "2026-03-21T06:30:43.455836",
-    "last_progress_changed_at": "2026-03-21T06:30:43.455836",
+    "last_checked_at": "2026-03-24T06:30:45.037815",
+    "last_progress_changed_at": "2026-03-24T06:30:45.037815",
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-20",
-    "last_seen_latest_url": "https://garyohosu.github.io/works/frankenstein/part-008/",
-    "last_seen_progress_value": 8,
+    "last_seen_latest_date": "2026-03-21",
+    "last_seen_latest_url": "https://garyohosu.github.io/works/frankenstein/part-009/",
+    "last_seen_progress_value": 9,
     "last_seen_title": "フランケンシュタイン",
     "target_id": "world-classics-jp"
   }
