@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-03-27T09:40:37.981327",
+    "last_checked_at": "2026-03-27T09:58:58.620729",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-03-26",
@@ -10,7 +10,7 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-03-27T09:40:51.605920",
+    "last_checked_at": "2026-03-27T09:59:03.539258",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "638e64246fd31312b6a15b6e8782fb03e17ca5add8d4470fab2799880df795bf",
     "last_seen_latest_date": "2026-03-27",
@@ -20,17 +20,17 @@
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-03-27T09:41:14.586890",
+    "last_checked_at": "2026-03-27T09:59:01.858567",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-25",
-    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/03/25/%E4%B8%BB%E5%A9%A6%E3%81%9F%E3%81%A1%E3%81%8C%E5%AE%9F%E8%B7%B5%E3%81%99%E3%82%8B-%E3%82%A2%E3%83%AC%E3%83%AB%E3%82%AE%E3%83%BC%E3%81%AB%E9%85%8D%E6%85%AE%E3%81%97%E3%81%9F%E3%83%98%E3%83%AB%E3%82%B7%E3%83%BC%E6%96%99%E7%90%86%E3%81%AE%E5%B7%A5%E5%A4%AB-5%E3%81%A4%E3%81%AE%E5%BA%97%E8%88%97%E3%81%A7%E8%81%9E%E3%81%84%E3%81%9F%E4%BD%93%E9%A8%93%E8%AB%87/",
+    "last_seen_latest_date": "2026-03-27",
+    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/03/27/%E4%B8%BB%E5%A9%A6%E3%81%A7%E3%82%82%E7%9B%AE%E6%8C%87%E3%81%9B%E3%82%8B-100%E4%B8%87%E5%86%86%E8%B2%AF%E8%93%84%E9%81%94%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89/",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "womens-magazine"
   },
   "world-classics-jp": {
-    "last_checked_at": "2026-03-27T09:40:55.231677",
+    "last_checked_at": "2026-03-27T09:59:05.656495",
     "last_progress_changed_at": "2026-03-27T06:30:41.136017",
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-03-26",
