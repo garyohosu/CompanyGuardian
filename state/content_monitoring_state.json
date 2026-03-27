@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-03-27T06:30:30.630492",
+    "last_checked_at": "2026-03-27T09:40:37.981327",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-03-26",
@@ -10,17 +10,17 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-03-27T06:30:38.951084",
+    "last_checked_at": "2026-03-27T09:40:51.605920",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "77a35f377b605a00ae0412eb03e0389349cc299f4682ea201b8bdd07be9300db",
-    "last_seen_latest_date": "2026-03-26",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-03-26-from-ito/index.html",
+    "last_seen_content_hash": "638e64246fd31312b6a15b6e8782fb03e17ca5add8d4470fab2799880df795bf",
+    "last_seen_latest_date": "2026-03-27",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-03-27-notes-on-itojo/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "From Ito",
+    "last_seen_title": "Notes on Itojo",
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-03-27T06:30:49.421070",
+    "last_checked_at": "2026-03-27T09:41:14.586890",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-03-25",
@@ -30,7 +30,7 @@
     "target_id": "womens-magazine"
   },
   "world-classics-jp": {
-    "last_checked_at": "2026-03-27T06:30:41.136017",
+    "last_checked_at": "2026-03-27T09:40:55.231677",
     "last_progress_changed_at": "2026-03-27T06:30:41.136017",
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-03-26",
