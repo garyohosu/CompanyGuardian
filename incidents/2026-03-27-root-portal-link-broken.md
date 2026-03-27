@@ -6,7 +6,7 @@
 - 異常コード: LINK_BROKEN
 
 ## 現象
-リンク切れ: https://garyo.sakura.ne.jp/magicboxai/
+ポータル掲載漏れ: AozoraDailyTranslations(https://garyohosu.github.io/AozoraDailyTranslations/), WorldClassicsJP(https://garyohosu.github.io/WorldClassicsJP/), Writer(https://garyohosu.github.io/writer/), OpenClaw Blog(https://garyohosu.github.io/OpenClawBlog/)
 
 ## 影響範囲
 公開サイトは到達可能だが、業務継続または品質に重大な異常あり
