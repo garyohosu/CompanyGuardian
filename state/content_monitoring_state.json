@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-03-29T19:11:58.990064",
+    "last_checked_at": "2026-03-30T06:30:42.332380",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-03-27",
@@ -10,32 +10,32 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-03-29T19:11:44.742417",
+    "last_checked_at": "2026-03-30T06:30:46.871120",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "638e64246fd31312b6a15b6e8782fb03e17ca5add8d4470fab2799880df795bf",
-    "last_seen_latest_date": "2026-03-27",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-03-27-notes-on-itojo/index.html",
+    "last_seen_content_hash": "c89b23bf831cc6fbf1270502c0442224b0ca27cf17275029249c9d6b0a4f726d",
+    "last_seen_latest_date": "2026-03-29",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-03-29-about-mr-inukai/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "Notes on Itojo",
+    "last_seen_title": "About Mr. Inukai",
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-03-29T19:12:03.239263",
+    "last_checked_at": "2026-03-30T06:30:45.307684",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-27",
-    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/03/27/%E4%B8%BB%E5%A9%A6%E3%81%A7%E3%82%82%E7%9B%AE%E6%8C%87%E3%81%9B%E3%82%8B-100%E4%B8%87%E5%86%86%E8%B2%AF%E8%93%84%E9%81%94%E6%88%90%E3%82%AC%E3%82%A4%E3%83%89/",
+    "last_seen_latest_date": "2026-03-29",
+    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/03/29/%E6%98%A5%E6%9C%8D%E8%BF%B7%E5%AD%90%E3%82%92%E5%8D%92%E6%A5%AD-%E6%89%8B%E6%8C%81%E3%81%A110%E7%9D%80%E3%81%A73%E9%80%B1%E9%96%93%E7%9D%80%E5%9B%9E%E3%81%9B%E3%81%9F-40%E4%BB%A3%E4%B8%BB%E5%A9%A6%E3%81%AE-%E9%AB%98%E8%A6%8B%E3%81%88-%E6%98%A5%E3%82%B3%E3%83%BC%E3%83%877%E3%81%A4%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%AB/",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "womens-magazine"
   },
   "world-classics-jp": {
-    "last_checked_at": "2026-03-29T19:11:47.007559",
-    "last_progress_changed_at": "2026-03-27T06:30:41.136017",
+    "last_checked_at": "2026-03-30T06:30:48.893908",
+    "last_progress_changed_at": "2026-03-30T06:30:48.893908",
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-26",
-    "last_seen_latest_url": "https://garyohosu.github.io/works/frankenstein/part-012/",
-    "last_seen_progress_value": 12,
+    "last_seen_latest_date": "2026-03-29",
+    "last_seen_latest_url": "https://garyohosu.github.io/works/frankenstein/part-014/",
+    "last_seen_progress_value": 14,
     "last_seen_title": "フランケンシュタイン",
     "target_id": "world-classics-jp"
   }
