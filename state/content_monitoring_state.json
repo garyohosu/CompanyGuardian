@@ -1,41 +1,41 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-03-31T06:30:39.647207",
+    "last_checked_at": "2026-04-01T06:30:38.848777",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-30",
-    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-03-30.html",
+    "last_seen_latest_date": "2026-03-31",
+    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-03-31.html",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-03-31T06:30:44.436677",
+    "last_checked_at": "2026-04-01T06:30:46.576593",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "c89b23bf831cc6fbf1270502c0442224b0ca27cf17275029249c9d6b0a4f726d",
-    "last_seen_latest_date": "2026-03-29",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-03-29-about-mr-inukai/index.html",
+    "last_seen_content_hash": "c56846b2d932870f9037b53df4de6421405ae121e10fecac0a00308d287abbd9",
+    "last_seen_latest_date": "2026-03-31",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-03-31-the-dog-and-the-flute/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "About Mr. Inukai",
+    "last_seen_title": "The Dog and the Flute",
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-03-31T06:30:42.821869",
+    "last_checked_at": "2026-04-01T06:30:43.136864",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-30",
-    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/03/30/%E6%AD%B3%E3%82%92%E6%A9%9F%E3%81%AB%E8%A6%8B%E7%9B%B4%E3%81%97%E3%81%9F%E3%81%84-%E5%81%A5%E5%BA%B7%E3%82%82%E3%81%94%E8%A4%92%E7%BE%8E%E3%82%82%E3%81%82%E3%81%8D%E3%82%89%E3%82%81%E3%81%9A-%E6%9C%883%E4%B8%87%E5%86%86%E3%81%AE%E9%A3%9F%E8%B2%BB%E3%81%A71.8%E4%B8%87%E5%86%86%E7%AF%80%E7%B4%84%E3%81%A7%E3%81%8D%E3%81%9F7%E3%81%A4%E3%81%AE%E5%B7%A5%E5%A4%AB/",
+    "last_seen_latest_date": "2026-03-31",
+    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/03/31/%E6%81%8B%E6%84%9B%E3%81%A8%E5%BF%83%E3%81%AE%E5%81%A5%E5%BA%B7%E3%81%AB%E5%8A%B9%E3%81%8F-_%E3%82%B9%E3%83%9E%E3%83%9B%E6%99%82%E4%BB%A3%E3%81%AE-%E3%81%A4%E3%81%AA%E3%81%8C%E3%82%8A%E6%96%B9-%E3%82%92%E5%BF%83%E7%90%86%E5%AD%A6%E3%81%AE%E6%9C%80%E6%96%B0%E7%A0%94%E7%A9%B6%E3%81%8B%E3%82%89%E3%81%B2%E3%82%82%E3%81%A8%E3%81%8F/",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "womens-magazine"
   },
   "world-classics-jp": {
-    "last_checked_at": "2026-03-31T06:30:46.564455",
-    "last_progress_changed_at": "2026-03-31T06:30:46.564455",
+    "last_checked_at": "2026-04-01T06:30:49.067742",
+    "last_progress_changed_at": "2026-04-01T06:30:49.067742",
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-03-30",
-    "last_seen_latest_url": "https://garyohosu.github.io/works/frankenstein/part-015/",
-    "last_seen_progress_value": 15,
+    "last_seen_latest_date": "2026-03-31",
+    "last_seen_latest_url": "https://garyohosu.github.io/works/frankenstein/part-016/",
+    "last_seen_progress_value": 16,
     "last_seen_title": "フランケンシュタイン",
     "target_id": "world-classics-jp"
   }
