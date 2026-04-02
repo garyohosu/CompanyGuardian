@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-04-02T06:30:33.833903",
+    "last_checked_at": "2026-04-03T06:30:56.766159",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-04-01",
@@ -10,17 +10,17 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-04-02T06:30:39.541533",
+    "last_checked_at": "2026-04-03T06:30:44.756988",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "b14d19e02e4fdc354d54168ae2be8d8992a2106c98c3007b46944de73185edc5",
-    "last_seen_latest_date": "2026-04-01",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-04-01-yam-gruel/index.html",
+    "last_seen_content_hash": "de263499ffe3331125434bc5a13f9e45e341502e28bdd06cbe102ed4ddac5f3f",
+    "last_seen_latest_date": "2026-04-02",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-04-02-mr-iwano-h-mei/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "Yam Gruel",
+    "last_seen_title": "Mr. Iwano Hōmei",
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-04-02T06:30:37.902682",
+    "last_checked_at": "2026-04-03T06:30:43.212142",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-04-01",
@@ -30,7 +30,7 @@
     "target_id": "womens-magazine"
   },
   "world-classics-jp": {
-    "last_checked_at": "2026-04-02T06:30:41.675885",
+    "last_checked_at": "2026-04-03T06:30:46.662012",
     "last_progress_changed_at": "2026-04-02T06:30:41.675885",
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-04-01",
