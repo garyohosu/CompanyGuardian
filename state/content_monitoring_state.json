@@ -1,41 +1,41 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-04-06T06:30:50.766254",
+    "last_checked_at": "2026-04-07T06:30:37.396484",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-04-03",
-    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-04-03.html",
+    "last_seen_latest_date": "2026-04-06",
+    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-04-06.html",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-04-06T06:30:40.692834",
+    "last_checked_at": "2026-04-07T06:30:43.333317",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "86268968fb549ec76d1f85816d04df14e6f38a7de9ca49634c8dead2063ac80e",
-    "last_seen_latest_date": "2026-04-05",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-04-05-birth-hut/index.html",
+    "last_seen_content_hash": "6d5b929eb7a354096feb8bd0cd5181fda5bac7c1e3279c093bf3fc1f30cc2bb4",
+    "last_seen_latest_date": "2026-04-06",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-04-06-the-horse-s-legs/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "Birth Hut",
+    "last_seen_title": "The Horse's Legs",
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-04-06T06:30:39.058065",
+    "last_checked_at": "2026-04-07T06:30:41.762375",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-04-05",
-    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/04/05/%E6%98%A5%E6%9C%8D%E3%81%AF%E5%8E%BB%E5%B9%B4%E3%81%AE%E3%81%BE%E3%81%BE%E3%81%A7%E3%82%82%E5%9E%A2%E6%8A%9C%E3%81%91%E3%82%8B-40%E4%BB%A3%E4%B8%BB%E5%A9%A6%E3%81%8C%E3%83%A6%E3%83%8B%E3%82%AF%E3%83%AD3%E7%82%B9%E3%81%AE%E8%B2%B7%E3%81%84%E8%B6%B3%E3%81%97%E3%81%A714%E3%82%B3%E3%83%BC%E3%83%87%E3%82%92%E7%9D%80%E5%9B%9E%E3%81%97%E3%81%9F%E6%96%B9%E6%B3%95/",
+    "last_seen_latest_date": "2026-04-06",
+    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/04/06/%E6%9C%9D5%E5%88%86%E3%81%A7%E9%80%9A%E5%8B%A4%E3%83%A1%E3%82%A4%E3%82%AF%E3%81%8C%E5%9E%A2%E6%8A%9C%E3%81%91%E3%82%8B-2026%E5%B9%B4%E6%98%A5%E3%83%88%E3%83%AC%E3%83%B3%E3%83%89-%E5%BE%AE%E7%86%B1%E3%83%94%E3%83%B3%E3%82%AF-%E3%82%92%E5%A4%B1%E6%95%97%E3%81%AA%E3%81%8F%E5%8F%96%E3%82%8A%E5%85%A5%E3%82%8C%E3%82%8B3%E3%81%A4%E3%81%AE%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "womens-magazine"
   },
   "world-classics-jp": {
-    "last_checked_at": "2026-04-06T06:30:42.840858",
-    "last_progress_changed_at": "2026-04-06T06:30:42.840858",
+    "last_checked_at": "2026-04-07T06:30:45.411053",
+    "last_progress_changed_at": "2026-04-07T06:30:45.411053",
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-04-05",
-    "last_seen_latest_url": "https://garyohosu.github.io/works/frankenstein/part-021/",
-    "last_seen_progress_value": 21,
+    "last_seen_latest_date": "2026-04-06",
+    "last_seen_latest_url": "https://garyohosu.github.io/works/frankenstein/part-022/",
+    "last_seen_progress_value": 22,
     "last_seen_title": "フランケンシュタイン",
     "target_id": "world-classics-jp"
   }
