@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-04-10T07:31:55.612898",
+    "last_checked_at": "2026-04-10T07:34:22.796951",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-04-09",
@@ -10,7 +10,7 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-04-10T07:32:00.231190",
+    "last_checked_at": "2026-04-10T07:34:28.155382",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "ea656e8283b5ed874a76b6b9df714d27b704c1d5ab2284c4fa65bc8476712fbb",
     "last_seen_latest_date": "2026-04-09",
@@ -20,7 +20,7 @@
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-04-10T07:31:58.660765",
+    "last_checked_at": "2026-04-10T07:34:26.076795",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-04-09",
@@ -30,13 +30,13 @@
     "target_id": "womens-magazine"
   },
   "world-classics-jp": {
-    "last_checked_at": "2026-04-10T07:32:03.819359",
+    "last_checked_at": "2026-04-10T07:34:30.213580",
     "last_progress_changed_at": "2026-04-09T06:30:43.842443",
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-04-09",
-    "last_seen_latest_url": "https://garyohosu.github.io/works/frankenstein/part-024/",
+    "last_seen_latest_url": "https://garyohosu.github.io/works/the-jungle-book/part-024/",
     "last_seen_progress_value": 24,
-    "last_seen_title": "フランケンシュタイン",
+    "last_seen_title": "ジャングル・ブック",
     "target_id": "world-classics-jp"
   }
 }
