@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-04-10T06:30:35.305927",
+    "last_checked_at": "2026-04-10T06:31:32.997911",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-04-09",
@@ -10,7 +10,7 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-04-10T06:30:41.019188",
+    "last_checked_at": "2026-04-10T06:31:38.409924",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "ea656e8283b5ed874a76b6b9df714d27b704c1d5ab2284c4fa65bc8476712fbb",
     "last_seen_latest_date": "2026-04-09",
@@ -20,7 +20,7 @@
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-04-10T06:30:39.367899",
+    "last_checked_at": "2026-04-10T06:31:36.626959",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-04-09",
@@ -30,7 +30,7 @@
     "target_id": "womens-magazine"
   },
   "world-classics-jp": {
-    "last_checked_at": "2026-04-10T06:30:43.083256",
+    "last_checked_at": "2026-04-10T06:31:41.549791",
     "last_progress_changed_at": "2026-04-09T06:30:43.842443",
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-04-09",
