@@ -257,7 +257,6 @@ companies:
     checks:
       - github_actions
       - site_http
-      - serial_progress
       - adsense_pages
 
   - id: writer
