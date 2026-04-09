@@ -243,9 +243,9 @@ companies:
       stagnant_days: 1
       expected_min_progress_value: 2
       progress_display_offset: 1
-      label: フランケンシュタイン
-      work_label: フランケンシュタイン
-      url_template: /works/frankenstein/part-{progress_value:03d}/
+      label: ジャングル・ブック
+      work_label: ジャングル・ブック
+      url_template: /works/the-jungle-book/part-{progress_value:03d}/
       stalled_message_template: '{label}第{display_progress_value}章から進行停止'
       repo_state_path: data/state.json
       repo_progress_path: current_part
