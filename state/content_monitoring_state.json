@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-04-11T06:31:28.156347",
+    "last_checked_at": "2026-04-12T06:30:52.772959",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-04-10",
@@ -10,21 +10,21 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-04-11T06:31:33.384207",
+    "last_checked_at": "2026-04-12T06:30:40.852652",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "8302ee009eec2957f39cb9c5c38f52f1be55b9af3878c83c2dbb06151bb8fac4",
-    "last_seen_latest_date": "2026-04-10",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-04-10-the-measure-of-a-hero/index.html",
+    "last_seen_content_hash": "73f856245c3cf787a81106f58c0bc4b7d08a315a688e683bcc39fccb8323ea2f",
+    "last_seen_latest_date": "2026-04-11",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-04-11-the-pagoda-tree/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "The Measure of a Hero",
+    "last_seen_title": "The Pagoda Tree",
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-04-11T06:31:31.569427",
+    "last_checked_at": "2026-04-12T06:30:38.687272",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-04-10",
-    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/04/10/%E6%9C%88%E3%81%AE%E3%81%86%E3%81%A3%E3%81%8B%E3%82%8A%E7%84%BC%E3%81%91-%E3%81%A73%E6%AD%B3%E8%80%81%E3%81%91%E8%A6%8B%E3%81%88!_%E7%BE%8E%E5%AE%B9%E3%83%A9%E3%82%A4%E3%82%BF%E3%83%BC%E3%81%8C%E6%9C%9D3%E5%88%86%E3%81%A7%E7%B6%9A%E3%81%91%E3%81%9F-%E6%98%A5UV%E5%AF%BE%E7%AD%965%E3%81%A4%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%AB-%E3%81%A7%E8%82%8C%E5%8D%B0%E8%B1%A1%E3%81%8C%E5%A4%89%E3%82%8F%E3%81%A3%E3%81%9F%E8%A9%B1/",
+    "last_seen_latest_date": "2026-04-11",
+    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/04/11/%E8%AA%AD%E6%9B%B8%E5%A5%BD%E3%81%8D%E3%81%AE%E5%BF%83%E3%82%92%E3%81%A4%E3%81%8B%E3%82%80%E4%B8%80%E5%86%8A-2026%E5%B9%B4%E6%98%A5%E3%81%AB%E8%AA%AD%E3%81%BF%E3%81%9F%E3%81%84-%E5%AE%B6%E6%97%8F%E3%81%AE%E3%81%8B%E3%81%9F%E3%81%A1%E3%82%92%E3%82%84%E3%81%95%E3%81%97%E3%81%8F%E8%A6%8B%E3%81%A4%E3%82%81%E7%9B%B4%E3%81%99%E7%89%A9%E8%AA%9E/",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "womens-magazine"
