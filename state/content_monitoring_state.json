@@ -1,30 +1,30 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-04-17T06:31:32.035295",
+    "last_checked_at": "2026-04-18T06:30:34.373234",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-04-16",
-    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-04-16.html",
+    "last_seen_latest_date": "2026-04-17",
+    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-04-17.html",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-04-17T06:31:39.839611",
+    "last_checked_at": "2026-04-18T06:30:40.316115",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "8eac864223167646c25620e5097fe2d27be6f7e40af78e1d10d4d2d792fd9d63",
-    "last_seen_latest_date": "2026-04-16",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-04-16-oshino/index.html",
+    "last_seen_content_hash": "e5bd2b29f87d9c84e8017690735b358bfbf3f9340131ffe847990a9d73e3eb89",
+    "last_seen_latest_date": "2026-04-17",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-04-17-tag/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "Oshino",
+    "last_seen_title": "Tag",
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-04-17T06:31:38.056397",
+    "last_checked_at": "2026-04-18T06:30:38.602389",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-04-16",
-    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/04/16/2026%E5%B9%B404%E6%9C%8816%E6%97%A5%E7%89%88-%E6%98%A5%E3%81%AE%E6%9A%AE%E3%82%89%E3%81%97%E3%82%92%E8%BB%BD%E3%81%8F%E3%81%99%E3%82%8B5%E5%88%86%E7%BF%92%E6%85%A3/",
+    "last_seen_latest_date": "2026-04-17",
+    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/04/17/2026%E5%B9%B404%E6%9C%8817%E6%97%A5%E7%89%88-%E6%98%A5%E3%81%AE%E6%9A%AE%E3%82%89%E3%81%97%E3%82%92%E8%BB%BD%E3%81%8F%E3%81%99%E3%82%8B5%E5%88%86%E7%BF%92%E6%85%A3/",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "womens-magazine"
