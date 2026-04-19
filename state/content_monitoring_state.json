@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-04-20T06:30:53.233768",
+    "last_checked_at": "2026-04-20T06:31:34.072099",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-04-17",
@@ -10,7 +10,7 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-04-20T06:30:40.891592",
+    "last_checked_at": "2026-04-20T06:31:38.958747",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "2915ea0ea4a4a1cae788fc919b1c729dea8b403c5dfcab7b50be510947792f75",
     "last_seen_latest_date": "2026-04-19",
@@ -20,7 +20,7 @@
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-04-20T06:30:39.206909",
+    "last_checked_at": "2026-04-20T06:31:37.269902",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-04-19",
