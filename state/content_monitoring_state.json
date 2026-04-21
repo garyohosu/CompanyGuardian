@@ -1,30 +1,30 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-04-21T06:31:38.480279",
+    "last_checked_at": "2026-04-22T06:30:34.943937",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-04-20",
-    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-04-20.html",
+    "last_seen_latest_date": "2026-04-21",
+    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-04-21.html",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-04-21T06:31:43.776714",
+    "last_checked_at": "2026-04-22T06:30:40.176035",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "9fba5d0b1ee110fd4d040445d217a5ba0515234375dd41d44eeee7ed4247c46b",
-    "last_seen_latest_date": "2026-04-20",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-04-20-seashell/index.html",
+    "last_seen_content_hash": "63507058060df1b5c6039f043ba9f126538d9773fdb7598f644f23d256ea4b84",
+    "last_seen_latest_date": "2026-04-21",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-04-21-self-mockery/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "Seashell",
+    "last_seen_title": "Self-Mockery",
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-04-21T06:31:41.915639",
+    "last_checked_at": "2026-04-22T06:30:38.146079",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-04-20",
-    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/04/20/2026%E5%B9%B404%E6%9C%8820%E6%97%A5%E7%89%88-%E6%98%A5%E3%81%AE%E6%9A%AE%E3%82%89%E3%81%97%E3%82%92%E8%BB%BD%E3%81%8F%E3%81%99%E3%82%8B5%E5%88%86%E7%BF%92%E6%85%A3/",
+    "last_seen_latest_date": "2026-04-21",
+    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/04/21/2026%E5%B9%B404%E6%9C%8821%E6%97%A5%E7%89%88-%E6%98%A5%E3%81%AE%E6%9A%AE%E3%82%89%E3%81%97%E3%82%92%E8%BB%BD%E3%81%8F%E3%81%99%E3%82%8B5%E5%88%86%E7%BF%92%E6%85%A3/",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "womens-magazine"
