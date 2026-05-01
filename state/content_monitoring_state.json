@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-05-01T06:31:37.715864",
+    "last_checked_at": "2026-05-01T10:03:47.794235",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-04-30",
@@ -10,17 +10,17 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-05-01T06:31:42.937159",
+    "last_checked_at": "2026-05-01T10:03:53.627722",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "9d1ba76ef5545b90580b321d4d99910dda111487e7d5a483710c7da059e5d2c6",
-    "last_seen_latest_date": "2026-04-30",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-04-30-notes-from-a-withered-field/index.html",
+    "last_seen_content_hash": "f80913ceb388b86b27cabbed8ede5e09e8d19c1f4c3acea87e7b6eaafb93bfb5",
+    "last_seen_latest_date": "2026-05-01",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-05-01-his-eighteen-merits/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "Notes from a Withered Field",
+    "last_seen_title": "His Eighteen Merits",
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-05-01T06:31:41.125429",
+    "last_checked_at": "2026-05-01T10:03:51.080881",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-04-30",
