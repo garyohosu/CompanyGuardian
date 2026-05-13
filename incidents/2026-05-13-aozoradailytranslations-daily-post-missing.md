@@ -12,25 +12,25 @@
 公開サイトは到達可能だが、業務継続または品質に重大な異常あり
 
 ## 原因分類
-WORKFLOW_NOT_RUNNING
+SITE_CONFIG_MISMATCH
 
 ## 原因要約
-latest_run=completed/success/2026-05-02T00:06:32Z / latest_success=2026-05-02T00:06:32Z / latest_commit=2026-05-02T00:05:55Z / site_latest=2026-05-02
+latest_run=completed/success/2026-05-13T04:30:05Z / latest_success=2026-05-13T04:30:05Z / latest_commit=2026-05-13T04:29:35Z / site_latest=2026-05-13
 
 ## 推奨修正
-workflow_dispatch で 1 回再実行
+CompanyGuardian の latest post 判定設定を見直す
 
 ## 実施した修正
-aozora-daily-translations は dispatch 対象 workflow 未設定
+aozora-daily-translations は高リスクまたは自動修正対象外のため原因解析のみ実施
 
 ## 修正結果
-aozora-daily-translations は dispatch 対象 workflow 未設定
+aozora-daily-translations は高リスクまたは自動修正対象外のため原因解析のみ実施
 
 ## 次アクション
-workflow_dispatch で 1 回再実行
+CompanyGuardian の latest post 判定設定を見直す
 
 ## 原因
-latest_run=completed/success/2026-05-02T00:06:32Z / latest_success=2026-05-02T00:06:32Z / latest_commit=2026-05-02T00:05:55Z / site_latest=2026-05-02
+latest_run=completed/success/2026-05-13T04:30:05Z / latest_success=2026-05-13T04:30:05Z / latest_commit=2026-05-13T04:29:35Z / site_latest=2026-05-13
 
 ## 関連 countermeasure
 
