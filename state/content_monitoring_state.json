@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-05-19T09:12:17.721349",
+    "last_checked_at": "2026-05-19T10:03:11.384229",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-05-18",
@@ -10,7 +10,7 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-05-19T09:12:24.095444",
+    "last_checked_at": "2026-05-19T10:03:18.453147",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "6540a655a24cf6589fb9a27da6c8b993d034c5c4861b82e19b79db58a90c56cf",
     "last_seen_latest_date": "2026-05-14",
@@ -20,11 +20,11 @@
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-05-19T09:12:21.944093",
+    "last_checked_at": "2026-05-19T10:03:16.607772",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-05-18",
-    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/05/18/2026%E5%B9%B405%E6%9C%8818%E6%97%A5%E7%89%88-%E6%98%A5%E3%81%AE%E6%9A%AE%E3%82%89%E3%81%97%E3%82%92%E8%BB%BD%E3%81%8F%E3%81%99%E3%82%8B5%E5%88%86%E7%BF%92%E6%85%A3/",
+    "last_seen_latest_date": "2026-05-19",
+    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/05/19/%E5%B9%B4-%E5%A5%B3%E6%80%A7%E3%81%A8AI%E3%81%AE%E6%96%B0%E3%81%97%E3%81%84%E9%96%A2%E4%BF%82%E3%81%A8%E3%81%AF-_%E3%82%AD%E3%83%A3%E3%83%AA%E3%82%A2%E3%82%92%E5%BA%83%E3%81%92%E3%82%8B%E3%83%AA%E3%82%A2%E3%83%AB%E3%81%AA%E4%BD%93%E9%A8%93%E8%AB%87/",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "womens-magazine"
