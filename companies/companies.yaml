@@ -31,13 +31,14 @@ companies:
         path: /index.html
       - type: site_path
         path: /feed.xml
-    daily_post_strategy:
-      - feed_xml
-      - site_path_pattern
-    daily_post_locator:
-      feed_url: https://garyohosu.github.io/auto-ai-blog/feed.xml
-      path_pattern: https://garyohosu.github.io/auto-ai-blog/posts/{yyyy}/{mm}/{dd}/
+    freshness_rule:
+      source_type: html_regex
+      source_url: https://garyohosu.github.io/auto-ai-blog/
+      entry_regex: 'href="(?P<url>/auto-ai-blog/[^" ]*/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/[^" ]*\.html)"'
       timezone: Asia/Tokyo
+      max_age_days: 3
+      label: 最新記事
+      stale_message_template: '{label}が {latest_date} で停止'
     adsense_marker_keyword: adsbygoogle
     required_adsense_pages:
       - /privacy-policy/
@@ -46,7 +47,7 @@ companies:
       - github_actions
       - site_http
       - artifact
-      - daily_post_previous_day
+      - latest_post_freshness
       - adsense_pages
 
   - id: magic-box-ai
@@ -187,21 +188,15 @@ companies:
     portal_visible: true
     adsense_required: true
     content_monitoring_kind: daily_post
-    daily_post_strategy:
-      - feed_xml
-      - site_path_pattern
-    daily_post_locator:
-      feed_url: https://garyohosu.github.io/AozoraDailyTranslations/feed.xml
-      path_pattern: https://garyohosu.github.io/AozoraDailyTranslations/posts/{yyyy}/{mm}/{dd}/
-      timezone: Asia/Tokyo
-    daily_post_rule:
+    freshness_rule:
       source_type: html_regex
       source_url: https://garyohosu.github.io/AozoraDailyTranslations/
       entry_regex: '<a class="az-card" href="(?P<url>\./works/(?P<date>\d{4}-\d{2}-\d{2})-[^"]+/index\.html)">\s*<span class="az-card-date">(?P=date)</span>\s*<span class="az-card-title">(?P<title>[^<]+)</span>'
       date_format: '%Y-%m-%d'
       timezone: Asia/Tokyo
-      label: 前日翻訳
-      missing_message_template: '{label}が {expected_date} 分で欠落'
+      max_age_days: 3
+      label: 最新翻訳
+      stale_message_template: '{label}が {latest_date} で停止'
     uniqueness_rule:
       source_type: html_regex
       source_url: https://garyohosu.github.io/AozoraDailyTranslations/
@@ -220,7 +215,7 @@ companies:
     checks:
       - github_actions
       - site_http
-      - daily_post_previous_day
+      - latest_post_freshness
       - latest_post_uniqueness
       - adsense_pages
 
