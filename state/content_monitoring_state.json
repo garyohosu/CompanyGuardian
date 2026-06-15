@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-06-15T09:45:16.464867",
+    "last_checked_at": "2026-06-15T09:48:33.497344",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-06-15",
@@ -10,7 +10,7 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-06-15T09:45:21.136167",
+    "last_checked_at": "2026-06-15T09:48:37.872570",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "b834aefcaa823710e213adb50b070c9ef06b309df4bdc8a43b269c3fae8132d3",
     "last_seen_latest_date": "2026-06-15",
@@ -19,8 +19,18 @@
     "last_seen_title": "The Peacock",
     "target_id": "aozora-daily-translations"
   },
+  "auto-ai-blog": {
+    "last_checked_at": "2026-06-15T09:48:29.950675",
+    "last_progress_changed_at": null,
+    "last_seen_content_hash": "",
+    "last_seen_latest_date": "2026-06-15",
+    "last_seen_latest_url": "https://garyohosu.github.io/auto-ai-blog/ai-tools/comparison/2026/06/15/ai-internal-helpdesk-tools.html",
+    "last_seen_progress_value": null,
+    "last_seen_title": "",
+    "target_id": "auto-ai-blog"
+  },
   "womens-magazine": {
-    "last_checked_at": "2026-06-15T09:45:19.527105",
+    "last_checked_at": "2026-06-15T09:48:36.357268",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-06-14",
