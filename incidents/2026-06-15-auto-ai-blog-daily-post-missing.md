@@ -12,25 +12,25 @@
 公開サイトは到達可能だが、業務継続または品質に重大な異常あり
 
 ## 原因分類
-WORKFLOW_NOT_RUNNING
+SITE_CONFIG_MISMATCH
 
 ## 原因要約
-latest_run=completed/success/2026-05-23T03:37:50Z / latest_success=2026-05-23T03:37:50Z / latest_commit=2026-05-23T03:36:00Z / site_latest=unknown
+latest_run=completed/success/2026-06-15T00:39:05Z / latest_success=2026-06-15T00:39:05Z / latest_commit=2026-06-15T00:36:45Z / site_latest=unknown
 
 ## 推奨修正
-workflow_dispatch で 1 回再実行
+CompanyGuardian の latest post 判定設定を見直す
 
 ## 実施した修正
-auto-ai-blog は dispatch 対象 workflow 未設定
+auto-ai-blog は高リスクまたは自動修正対象外のため原因解析のみ実施
 
 ## 修正結果
-auto-ai-blog は dispatch 対象 workflow 未設定
+auto-ai-blog は高リスクまたは自動修正対象外のため原因解析のみ実施
 
 ## 次アクション
-workflow_dispatch で 1 回再実行
+CompanyGuardian の latest post 判定設定を見直す
 
 ## 原因
-latest_run=completed/success/2026-05-23T03:37:50Z / latest_success=2026-05-23T03:37:50Z / latest_commit=2026-05-23T03:36:00Z / site_latest=unknown
+latest_run=completed/success/2026-06-15T00:39:05Z / latest_success=2026-06-15T00:39:05Z / latest_commit=2026-06-15T00:36:45Z / site_latest=unknown
 
 ## 関連 countermeasure
 

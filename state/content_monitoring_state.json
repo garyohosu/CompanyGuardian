@@ -1,26 +1,26 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-06-15T09:29:43.289936",
+    "last_checked_at": "2026-06-15T09:41:51.238619",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-06-12",
-    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-06-12.html",
+    "last_seen_latest_date": "2026-06-15",
+    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-06-15.html",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-06-15T09:29:48.773071",
+    "last_checked_at": "2026-06-15T09:41:39.741716",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "01ff2ef5cb3f77154e107fa19b75b7562bf62954778a1e6a7e48f4ac0c92083b",
-    "last_seen_latest_date": "2026-05-23",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-05-23-miscellany-from-kugenuma/index.html",
+    "last_seen_content_hash": "b834aefcaa823710e213adb50b070c9ef06b309df4bdc8a43b269c3fae8132d3",
+    "last_seen_latest_date": "2026-06-15",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-06-15-the-peacock/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "Miscellany from Kugenuma",
+    "last_seen_title": "The Peacock",
     "target_id": "aozora-daily-translations"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-06-15T09:29:46.874927",
+    "last_checked_at": "2026-06-15T09:41:37.968017",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-06-14",
