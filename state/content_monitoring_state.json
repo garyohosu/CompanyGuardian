@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-06-16T06:30:44.138455",
+    "last_checked_at": "2026-06-16T08:42:33.012688",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-06-15",
@@ -10,7 +10,7 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-06-16T06:30:50.745490",
+    "last_checked_at": "2026-06-16T08:42:38.443819",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "7e69e9365da066e30623e78a1a5dbd30d66892d79d6b8c202a31ca855be55890",
     "last_seen_latest_date": "2026-06-15",
@@ -20,7 +20,7 @@
     "target_id": "aozora-daily-translations"
   },
   "auto-ai-blog": {
-    "last_checked_at": "2026-06-16T06:30:40.135360",
+    "last_checked_at": "2026-06-16T08:42:28.190035",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-06-15",
@@ -30,7 +30,7 @@
     "target_id": "auto-ai-blog"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-06-16T06:30:48.743556",
+    "last_checked_at": "2026-06-16T08:42:36.605463",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-06-15",
