@@ -98,7 +98,7 @@ companies:
       entry_regex: '(?P<url>/posts/daily/(?P<date>\d{4}-\d{2}-\d{2})\.html)'
       date_format: '%Y-%m-%d'
       timezone: Asia/Tokyo
-      max_age_days: 1
+      max_age_days: 3
       label: 最新日次レポート
       stale_message_template: '{label}が {latest_date} で停止'
       repo_path_pattern: docs/posts/daily/{date}.html
