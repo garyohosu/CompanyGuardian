@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-06-15T09:48:33.497344",
+    "last_checked_at": "2026-06-15T10:50:51.617835",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-06-15",
@@ -10,17 +10,17 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-06-15T09:48:37.872570",
+    "last_checked_at": "2026-06-15T10:50:56.441799",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "b834aefcaa823710e213adb50b070c9ef06b309df4bdc8a43b269c3fae8132d3",
+    "last_seen_content_hash": "7e69e9365da066e30623e78a1a5dbd30d66892d79d6b8c202a31ca855be55890",
     "last_seen_latest_date": "2026-06-15",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-06-15-the-peacock/index.html",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-06-15-the-story-of-a-head-falling-off/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "The Peacock",
+    "last_seen_title": "The Story of a Head Falling Off",
     "target_id": "aozora-daily-translations"
   },
   "auto-ai-blog": {
-    "last_checked_at": "2026-06-15T09:48:29.950675",
+    "last_checked_at": "2026-06-15T10:50:47.106583",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-06-15",
@@ -30,7 +30,7 @@
     "target_id": "auto-ai-blog"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-06-15T09:48:36.357268",
+    "last_checked_at": "2026-06-15T10:50:54.773031",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-06-14",
