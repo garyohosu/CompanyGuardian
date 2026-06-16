@@ -1,26 +1,26 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-06-16T08:42:33.012688",
+    "last_checked_at": "2026-06-17T06:31:24.639025",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-06-15",
-    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-06-15.html",
+    "last_seen_latest_date": "2026-06-16",
+    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-06-16.html",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-06-16T08:42:38.443819",
+    "last_checked_at": "2026-06-17T06:31:29.734952",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "7e69e9365da066e30623e78a1a5dbd30d66892d79d6b8c202a31ca855be55890",
-    "last_seen_latest_date": "2026-06-15",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-06-15-the-story-of-a-head-falling-off/index.html",
+    "last_seen_content_hash": "54148a29682809e1a315735d2f2ebaa82d358d4b3b93274592d935e7cf3b1e74",
+    "last_seen_latest_date": "2026-06-16",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-06-16-on-mr-masao-kume/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "The Story of a Head Falling Off",
+    "last_seen_title": "On Mr. Masao Kume",
     "target_id": "aozora-daily-translations"
   },
   "auto-ai-blog": {
-    "last_checked_at": "2026-06-16T08:42:28.190035",
+    "last_checked_at": "2026-06-17T06:31:19.970267",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-06-15",
@@ -30,11 +30,11 @@
     "target_id": "auto-ai-blog"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-06-16T08:42:36.605463",
+    "last_checked_at": "2026-06-17T06:31:27.807260",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-06-15",
-    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/06/15/2026%E5%B9%B406%E6%9C%8815%E6%97%A5%E7%89%88-%E6%98%A5%E3%81%AE%E6%9A%AE%E3%82%89%E3%81%97%E3%82%92%E8%BB%BD%E3%81%8F%E3%81%99%E3%82%8B5%E5%88%86%E7%BF%92%E6%85%A3/",
+    "last_seen_latest_date": "2026-06-16",
+    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/06/16/2026%E5%B9%B406%E6%9C%8816%E6%97%A5%E7%89%88-%E6%98%A5%E3%81%AE%E6%9A%AE%E3%82%89%E3%81%97%E3%82%92%E8%BB%BD%E3%81%8F%E3%81%99%E3%82%8B5%E5%88%86%E7%BF%92%E6%85%A3/",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "womens-magazine"
