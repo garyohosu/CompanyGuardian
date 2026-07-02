@@ -1,36 +1,36 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-07-02T13:30:39.503261",
+    "last_checked_at": "2026-07-03T06:31:26.997244",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-07-01",
-    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-07-01.html",
+    "last_seen_latest_date": "2026-07-02",
+    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-07-02.html",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-07-02T13:30:46.795114",
+    "last_checked_at": "2026-07-03T06:31:34.234429",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "9fc8054bc4968878d6c215f52713b95198fd3dd54c65262ef301ab9d0c276fd5",
-    "last_seen_latest_date": "2026-06-27",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-06-27-difficulties-of-marriage-and-love/index.html",
+    "last_seen_content_hash": "524c80a32dfcf719f188062c81ed49463fbb3518b42a1667b8333de0ecb38285",
+    "last_seen_latest_date": "2026-07-02",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-07-02-from-the-celtic-twilight/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "Difficulties of Marriage and Love",
+    "last_seen_title": "From \"The Celtic Twilight\"",
     "target_id": "aozora-daily-translations"
   },
   "auto-ai-blog": {
-    "last_checked_at": "2026-07-02T13:30:35.253823",
+    "last_checked_at": "2026-07-03T06:31:16.457280",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-06-27",
-    "last_seen_latest_url": "https://garyohosu.github.io/auto-ai-blog/ai-tools/comparison/2026/06/27/ai-risk-log-management.html",
+    "last_seen_latest_date": "2026-07-02",
+    "last_seen_latest_url": "https://garyohosu.github.io/auto-ai-blog/ai-tools/comparison/2026/07/02/ai-postmortem-writing-tools.html",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "auto-ai-blog"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-07-02T13:30:43.495302",
+    "last_checked_at": "2026-07-03T06:31:32.363075",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-07-02",
