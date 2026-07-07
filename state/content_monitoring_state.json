@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-07-07T17:35:08.931281",
+    "last_checked_at": "2026-07-07T17:48:45.326923",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-07-07",
@@ -10,17 +10,17 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-07-07T17:35:14.203979",
+    "last_checked_at": "2026-07-07T17:48:50.107961",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "14114760bf99d9a744085da653b04a4c6f920c2712fa6402d44f2a76dd5e3bfc",
-    "last_seen_latest_date": "2026-07-03",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-07-03-genkaku-s-retreat/index.html",
+    "last_seen_content_hash": "4383c9422153c03aa4c9e5aa17d253a41a6a7e8d482d2754df722ecff0786454",
+    "last_seen_latest_date": "2026-07-07",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-07-07-a-chronicle-of-lectures/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "Genkaku's Retreat",
+    "last_seen_title": "A Chronicle of Lectures",
     "target_id": "aozora-daily-translations"
   },
   "auto-ai-blog": {
-    "last_checked_at": "2026-07-07T17:35:04.922990",
+    "last_checked_at": "2026-07-07T17:48:41.678298",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-07-02",
@@ -30,7 +30,7 @@
     "target_id": "auto-ai-blog"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-07-07T17:35:12.312870",
+    "last_checked_at": "2026-07-07T17:48:48.475429",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-07-07",
