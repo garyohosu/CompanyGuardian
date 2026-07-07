@@ -1,16 +1,16 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-07-07T16:21:20.199336",
+    "last_checked_at": "2026-07-07T17:32:59.689941",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-07-03",
-    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-07-03.html",
+    "last_seen_latest_date": "2026-07-07",
+    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-07-07.html",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-07-07T16:21:05.438621",
+    "last_checked_at": "2026-07-07T17:33:05.091031",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "14114760bf99d9a744085da653b04a4c6f920c2712fa6402d44f2a76dd5e3bfc",
     "last_seen_latest_date": "2026-07-03",
@@ -20,7 +20,7 @@
     "target_id": "aozora-daily-translations"
   },
   "auto-ai-blog": {
-    "last_checked_at": "2026-07-07T16:20:55.736973",
+    "last_checked_at": "2026-07-07T17:32:55.761415",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-07-02",
@@ -30,7 +30,7 @@
     "target_id": "auto-ai-blog"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-07-07T16:21:03.776760",
+    "last_checked_at": "2026-07-07T17:33:03.326702",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-07-07",
