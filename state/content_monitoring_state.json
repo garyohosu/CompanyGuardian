@@ -1,26 +1,26 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-07-15T06:30:45.173354",
+    "last_checked_at": "2026-07-16T06:30:43.972077",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-07-14",
-    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-07-14.html",
+    "last_seen_latest_date": "2026-07-15",
+    "last_seen_latest_url": "https://garyohosu.github.io/posts/daily/2026-07-15.html",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-07-15T06:30:50.434035",
+    "last_checked_at": "2026-07-16T06:30:49.029003",
     "last_progress_changed_at": null,
-    "last_seen_content_hash": "4af9c3ba5a3997019ab2923d0d316fc3b96658fb4d6dfdfa5829cc65fe055ca2",
-    "last_seen_latest_date": "2026-07-14",
-    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-07-14-rational-yet-rich-in-humanity/index.html",
+    "last_seen_content_hash": "f37c5e3de74fcd091f9785d360bd3c4f091fc64d58ccac4ba5924f297c194c04",
+    "last_seen_latest_date": "2026-07-15",
+    "last_seen_latest_url": "https://garyohosu.github.io/AozoraDailyTranslations/works/2026-07-15-the-millet-dream/index.html",
     "last_seen_progress_value": null,
-    "last_seen_title": "Rational, Yet Rich in Humanity",
+    "last_seen_title": "The Millet Dream",
     "target_id": "aozora-daily-translations"
   },
   "auto-ai-blog": {
-    "last_checked_at": "2026-07-15T06:30:40.200997",
+    "last_checked_at": "2026-07-16T06:30:39.360649",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-07-11",
@@ -30,11 +30,11 @@
     "target_id": "auto-ai-blog"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-07-15T06:30:48.725110",
+    "last_checked_at": "2026-07-16T06:30:47.306174",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-07-14",
-    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/07/14/2026%E5%B9%B407%E6%9C%8814%E6%97%A5%E7%89%88-%E6%98%A5%E3%81%AE%E6%9A%AE%E3%82%89%E3%81%97%E3%82%92%E8%BB%BD%E3%81%8F%E3%81%99%E3%82%8B5%E5%88%86%E7%BF%92%E6%85%A3/",
+    "last_seen_latest_date": "2026-07-15",
+    "last_seen_latest_url": "https://garyohosu.github.io/WomensMagazine/2026/07/15/2026%E5%B9%B407%E6%9C%8815%E6%97%A5%E7%89%88-%E6%98%A5%E3%81%AE%E6%9A%AE%E3%82%89%E3%81%97%E3%82%92%E8%BB%BD%E3%81%8F%E3%81%99%E3%82%8B5%E5%88%86%E7%BF%92%E6%85%A3/",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "womens-magazine"
