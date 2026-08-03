@@ -1,6 +1,6 @@
 {
   "ai-broker": {
-    "last_checked_at": "2026-08-03T18:48:02.792057",
+    "last_checked_at": "2026-08-04T07:55:54.014822",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-08-03",
@@ -10,7 +10,7 @@
     "target_id": "ai-broker"
   },
   "aozora-daily-translations": {
-    "last_checked_at": "2026-08-03T18:48:22.128122",
+    "last_checked_at": "2026-08-04T07:56:02.577723",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "9a6eaf7036b7b0264dadab4107fa28574dd556b751b1aca5faca5845915fee90",
     "last_seen_latest_date": "2026-08-03",
@@ -20,17 +20,17 @@
     "target_id": "aozora-daily-translations"
   },
   "auto-ai-blog": {
-    "last_checked_at": "2026-08-03T18:47:53.104849",
+    "last_checked_at": "2026-08-04T07:55:49.083778",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
-    "last_seen_latest_date": "2026-07-29",
-    "last_seen_latest_url": "https://garyohosu.github.io/auto-ai-blog/ai-tools/comparison/2026/07/29/ai-slack-triage-bot.html",
+    "last_seen_latest_date": "2026-08-03",
+    "last_seen_latest_url": "https://garyohosu.github.io/auto-ai-blog/ai-tools/comparison/2026/08/03/ai-change-audit-trail.html",
     "last_seen_progress_value": null,
     "last_seen_title": "",
     "target_id": "auto-ai-blog"
   },
   "womens-magazine": {
-    "last_checked_at": "2026-08-03T18:48:16.029912",
+    "last_checked_at": "2026-08-04T07:56:00.334613",
     "last_progress_changed_at": null,
     "last_seen_content_hash": "",
     "last_seen_latest_date": "2026-08-03",
